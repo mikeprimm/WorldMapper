@@ -8,11 +8,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.BitSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.spout.nbt.ByteArrayTag;
 import org.spout.nbt.CompoundMap;
 import org.spout.nbt.CompoundTag;
+import org.spout.nbt.ListTag;
 import org.spout.nbt.Tag;
 import org.spout.nbt.stream.NBTInputStream;
+import org.spout.nbt.util.NBTMapper;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -32,6 +38,134 @@ public class WorldMapper {
     }
     private static class MappingConfig {
         private BlockMapping[] blocks;
+    }
+    
+    private static class MappedChunk {
+        Tag<?> level;
+        int bcnt;   // Number of blocks mapped
+        int tescrubbed; // Number of tile entities scrubbed
+        CompoundMap value;  // Base value for chunk
+        List<CompoundTag> tileents; // List of tile entites (original)
+        LinkedList<CompoundTag> new_tileents; // New list, if modified
+        byte[] biomes; // biome data (ZX order)
+        List<CompoundTag> sections; // Chunk sections
+
+        @SuppressWarnings("unchecked")
+        MappedChunk(Tag<?> lvl) throws IOException {
+            level = lvl;
+            CompoundMap val = NBTMapper.getTagValue(level, CompoundMap.class);
+            value = NBTMapper.getTagValue(val.get("Level"), CompoundMap.class);
+            if (value == null) throw new IOException("Chunk is missing Level data");
+
+            this.tileents = NBTMapper.getTagValue(value.get("TileEntities"), List.class);
+            if (tileents == null) throw new IOException("Chunk is missing TileEntities data");
+            // Get biomes (ZX order)
+            biomes = NBTMapper.getTagValue(value.get("Biomes"), byte[].class);
+            if ((biomes == null) || (biomes.length < 256)) { throw new IOException("No value for Biomes in chunk"); }
+            
+            // Get sections of chunk
+            sections = NBTMapper.getTagValue(value.get("Sections"), List.class);
+            if (sections == null) { throw new IOException("No value for Sections in chunk"); }
+
+            bcnt = tescrubbed = 0;
+        }
+        // Process chunk
+        void processChunk() throws IOException {
+            // Loop through the sections
+            for (CompoundTag sect : sections) {
+                processSection(sect.getValue());
+            }
+            // If modified tile entities list, replace it
+            if (new_tileents != null) {
+                value.put("TileEntities", new ListTag<CompoundTag>("TileEntities", CompoundTag.class, new_tileents));
+            }
+        }
+        void processSection(CompoundMap sect) throws IOException {
+            Byte y = NBTMapper.getTagValue(sect.get("Y"), Byte.class);
+            if (y == null) throw new IOException("Section missing Y field");
+            byte[] blocks = NBTMapper.getTagValue(sect.get("Blocks"), byte[].class);
+            int yoff = y.intValue() * 16; // Base Y value of section
+            if ((blocks == null) || (blocks.length < 4096)) throw new IOException("Section missing Blocks field");
+            byte[] extblocks = NBTMapper.getTagValue(sect.get("Add"), byte[].class); // Might be null
+            if ((extblocks != null) && (extblocks.length < 2048))  throw new IOException("Section missing Data field");
+            byte[] data = NBTMapper.getTagValue(sect.get("Data"), byte[].class);
+            if ((data == null) || (data.length < 2048)) throw new IOException("Section missing Data field");
+            
+            for (int i = 0, j = 0; i < 4096; j++) { // YZX order
+                int id, meta;
+                int extid = 0;
+                int datavals = data[j];
+                int idmataval = 0;
+                int newidmetaval;
+                if (extblocks != null) {
+                    extid = 255 & extblocks[j];
+                }
+                // Process even values
+                id = (255 & blocks[i]) | ((extid & 0xF) << 8);
+                meta = (datavals & 0xF);
+                idmataval = (id << 4) | meta;
+                newidmetaval = blkid_map[idmataval];
+                if (newidmetaval != idmataval) {    // New value?
+                    if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
+                        deleteTileEntity(i & 0xF, (i >> 8) + yoff, (i >> 4) & 0xF);
+                    }
+                    id = (newidmetaval >> 4);
+                    meta = (newidmetaval & 0xF);
+                    if ((id > 256) && (extblocks == null)) {
+                        extblocks = new byte[2048];
+                        sect.put("Add", new ByteArrayTag("Add", extblocks));
+                    }
+                    blocks[i] = (byte)(255 & id);
+                    if (extblocks != null) {
+                        extblocks[j] = (byte) ((extblocks[j] & 0xF0) | ((id >> 8) & 0xF));
+                    }
+                    data[j] = (byte) ((data[j] & 0xF0) | (meta & 0xF));
+                    bcnt++;
+                }
+                i++;
+                // Process odd values
+                id = (255 & blocks[i]) | ((extid & 0xF0) << 4);
+                meta = (datavals & 0xF0) >> 4;
+                idmataval = (id << 4) | meta;
+                newidmetaval = blkid_map[idmataval];
+                if (newidmetaval != idmataval) {    // New value?
+                    id = (newidmetaval >> 4);
+                    meta = (newidmetaval & 0xF);
+                    if ((id > 256) && (extblocks == null)) {
+                        extblocks = new byte[2048];
+                        sect.put("Add", new ByteArrayTag("Add", extblocks));
+                    }
+                    blocks[i] = (byte)(255 & id);
+                    if (extblocks != null) {
+                        extblocks[j] = (byte) ((extblocks[j] & 0x0F) | ((id >> 4) & 0xF0));
+                    }
+                    data[j] = (byte) ((data[j] & 0x0F) | ((meta << 4) & 0xF0));
+                    bcnt++;
+                }
+                i++;
+            }
+        }
+        private void deleteTileEntity(int x, int y, int z) {
+            if (new_tileents == null) {
+                new_tileents = new LinkedList<CompoundTag>(tileents);
+            }
+            Iterator<CompoundTag> te_iter = new_tileents.iterator();
+            while (te_iter.hasNext()) {
+                CompoundTag te = te_iter.next();
+                CompoundMap ted = te.getValue();
+                if (ted == null) continue;
+                Integer tex = NBTMapper.getTagValue(ted.get("x"), Integer.class);
+                Integer tey = NBTMapper.getTagValue(ted.get("y"), Integer.class);
+                Integer tez = NBTMapper.getTagValue(ted.get("z"), Integer.class);
+                if ((tex == null) || (tey == null) || (tez == null)) continue;
+                // If matches on chunk relatve coordinates
+                if (((tex & 0xF) == x) && (tey == y) && ((tez & 0xF) == z)) {
+                    te_iter.remove();
+                    tescrubbed++;
+                    return;
+                }
+            }
+        }
     }
     private static void defaultMap() {
         // Default to trivial mapping
@@ -174,35 +308,44 @@ public class WorldMapper {
     }
     // Process a region file
     private static void processRegionFile(File srcfile, File destfile) throws IOException {
-        // Load source region file
-        RegionFile srcrf = new RegionFile(srcfile);
-        srcrf.load();
-        int cnt = 0;
-        for (int x = 0; x < 32; x++) {
-            for (int z = 0; z < 32; z++) {
-                if(srcrf.chunkExists(x, z)) {   // If chunk exists
-                    cnt++;
-                    System.out.println("Chunk " + x + "," + z + " exists");
-                    DataInputStream dis = srcrf.readChunk(x, z);
-                    if (dis != null) {
-                        NBTInputStream nis = new NBTInputStream(dis, false);
-                        Tag tag = nis.readTag();
-                        if (tag instanceof CompoundTag) {
-                            CompoundTag ct = (CompoundTag) tag;
-                            CompoundMap cm = ct.getValue();
-                            Tag lvl = cm.get("Level");
-                            if (lvl instanceof CompoundTag) {
-                                cm = ((CompoundTag)lvl).getValue();
-                                for (String k : cm.keySet()) {
-                                    System.out.println(k + ": " + cm.get(k).getType());
-                                }
-                            }
+        boolean success = false;
+        int bcnt = 0;
+        int tecnt = 0;
+        int cupdated = 0;
+        try {
+            // Copy source file to destination
+            processFileCopy(srcfile, destfile);
+            // Load region file
+            RegionFile destf = new RegionFile(destfile);
+            destf.load();
+            int cnt = 0;
+            for (int x = 0; x < 32; x++) {
+                for (int z = 0; z < 32; z++) {
+                    if(destf.chunkExists(x, z)) {   // If chunk exists
+                        cnt++;
+                        Tag<?> tag = destf.readChunk(x, z);
+                        if (tag == null) { System.err.println("Chunk " + x + "," + z + " exists but not read"); continue; }
+                        MappedChunk mc = new MappedChunk(tag);
+                        mc.processChunk();
+                        // Test if updated
+                        if (mc.bcnt > 0) {
+                            bcnt += mc.bcnt;
+                            tecnt += mc.tescrubbed;
+                            cupdated++;
+                            // Write updated chunk data
+                            destf.writeChunk(x, z, mc.level);
                         }
                     }
                 }
             }
+            success = true;
+
+            System.out.println("Region " + destfile.getPath() + ", " + cnt + " chunks: updated " + bcnt + " blocks in " + cupdated + " chunks, " + tecnt + " TileEntities scrubbed");
+        } finally {
+            if (!success) {
+                destfile.delete();
+            }
         }
-        System.out.println("Region " + srcfile.getPath() + ", " + cnt + " chunks");
     }
     // Process a generic file (just copy)
     private static void processFileCopy(File srcfile, File destfile) throws IOException {
@@ -222,4 +365,5 @@ public class WorldMapper {
         }
         System.out.println("Copied " + srcfile.getPath() + " to " + destfile.getPath());
     }
+    
 }

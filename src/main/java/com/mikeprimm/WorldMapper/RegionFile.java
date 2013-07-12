@@ -1,16 +1,18 @@
 package com.mikeprimm.WorldMapper;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.RandomAccessFile;
 import java.util.BitSet;
+import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
+import org.spout.nbt.Tag;
+import org.spout.nbt.stream.NBTInputStream;
+import org.spout.nbt.stream.NBTOutputStream;
 
 public class RegionFile {
     private File rfile;
@@ -31,6 +33,7 @@ public class RegionFile {
         alloc_table.set(0); // First two are always allocated
         alloc_table.set(1);
         chunkoff = new int[1024];
+        chunklen = new int[1024];
         timestamp = new int[1024];
         if (raf != null) { try { raf.close(); } catch (IOException x) {};  raf = null; }
     }
@@ -77,7 +80,7 @@ public class RegionFile {
     }
     
     // Write chunk timestamp
-    private void writeChunkTimestamp(int x, int z, int timestamp) throws IOException {
+    public void writeChunkTimestamp(int x, int z, int timestamp) throws IOException {
         int idx = getIndex(x, z);
         this.timestamp[idx] = timestamp;
         raf.seek(4096L + (idx*4));
@@ -103,7 +106,7 @@ public class RegionFile {
     }
     
     // Read chunk, return as data stream
-    public DataInputStream readChunk(int x, int z) throws IOException {
+    public Tag<?> readChunk(int x, int z) throws IOException {
         // Sanity check chunk coordinates
         if ((x < 0) || (x > 31) || (z < 0) || (z > 31)) {
             return null;
@@ -117,9 +120,9 @@ public class RegionFile {
         raf.seek(baseoff);  // Seek to chunk
         int clen = raf.readInt();   // Read chunk byte count
         if ((clen > (cnt * 4096)) || (clen <= 0)) {  // Not enough data?
-            return null;
+            throw new IOException("Length longer than space: " + clen + " > " + (cnt * 4096));
         }
-        byte encoding = raf.readByte(); // Get encoding for chunk
+        int encoding = raf.readByte(); // Get encoding for chunk
         byte[] buf = null;
         InputStream in = null;
         switch (encoding) {
@@ -128,24 +131,40 @@ public class RegionFile {
                 raf.read(buf);  // Read whole compressed chunk
                 // And return stream to decompress it
                 in = new GZIPInputStream(new ByteArrayInputStream(buf));
+                break;
             case 2:
                 buf = new byte[clen - 1];   // Get buffer for bytes (length has 1 extra)
                 raf.read(buf);  // Read whole compressed chunk
                 in = new InflaterInputStream(new ByteArrayInputStream(buf));
+                break;
+            default:
+                throw new IOException("Bad encoding=" + encoding);
         }
-        if (in != null) {
-            return new DataInputStream(new BufferedInputStream(in));
-        }
-        else {
-            return null;
+        NBTInputStream nis = new NBTInputStream(in, false);
+        try {
+            return nis.readTag();
+        } finally {
+            nis.close();
         }
     }
-    // Write compressed buffer to chunk
-    public boolean writeChunk(int x, int z, byte[] cbytes, int clen) throws IOException {
+    // Write chunk NBT to file
+    public boolean writeChunk(int x, int z, Tag<?> lvl) throws IOException {
         // Sanity check chunk coordinates
         if ((x < 0) || (x > 31) || (z < 0) || (z > 31)) {
             return false;
         }
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(8192);
+        DeflaterOutputStream dos = new DeflaterOutputStream(baos);
+        NBTOutputStream nbtos = new NBTOutputStream(dos, false);
+        try {
+            nbtos.writeTag(lvl);
+        } finally {
+            nbtos.close();
+        }
+        byte[] cbytes = baos.toByteArray();
+        int clen = baos.size();
+        
         int idx = getIndex(x, z);   // Get index
         int curoff = this.chunkoff[idx];
         int curlen = this.chunklen[idx];
@@ -162,12 +181,14 @@ public class RegionFile {
                     this.alloc_table.clear(off);
                 }
                 curoff = 0;
+                curlen = 0;
             }
             // Else, need less - free extra
             else {
                 for (int off = curoff + newlen; off < (curoff + curlen); off++) {
                     this.alloc_table.clear(off);
                 }
+                curlen = newlen;
             }
         }
         // If not allocated, allocate new space
@@ -175,10 +196,9 @@ public class RegionFile {
             int cnt;
             int off;
             // Find big enough space
-            for (off = 2, cnt = 0; cnt < newlen;) {
+            for (off = 2, cnt = 0; cnt < newlen; off++) {
                 if (alloc_table.get(off)) {  // Allocated?
                     cnt = 0;
-                    off++;
                     curoff = 0;
                 }
                 else {  // Free space
@@ -205,6 +225,7 @@ public class RegionFile {
         raf.writeInt(clen + 1);
         raf.writeByte(2);
         raf.write(cbytes, 0, clen);
+        writeChunkOffsetCnt(x, z, curoff, curlen);
         
         return true;
     }

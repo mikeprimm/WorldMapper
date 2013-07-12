@@ -10,10 +10,8 @@
             "newblkid": 41
         },
         {
-            "blkid": 14,
-            "meta": 2,
-            "newblkid": 41,
-            "newmeta": 3,
+            "blkid": 25,
+            "newblkid": 2000,
             "tosstileentity": true
         },
         
