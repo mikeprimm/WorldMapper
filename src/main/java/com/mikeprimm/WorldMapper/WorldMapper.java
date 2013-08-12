@@ -78,6 +78,7 @@ public class WorldMapper {
             // If modified tile entities list, replace it
             if (new_tileents != null) {
                 value.put("TileEntities", new ListTag<CompoundTag>("TileEntities", CompoundTag.class, new_tileents));
+                new_tileents = null;
             }
         }
         void processSection(CompoundMap sect) throws IOException {
@@ -107,7 +108,7 @@ public class WorldMapper {
                 newidmetaval = blkid_map[idmataval];
                 if (newidmetaval != idmataval) {    // New value?
                     if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
-                        deleteTileEntity(i & 0xF, (i >> 8) + yoff, (i >> 4) & 0xF);
+                        deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
                     }
                     id = (newidmetaval >> 4);
                     meta = (newidmetaval & 0xF);
@@ -117,9 +118,9 @@ public class WorldMapper {
                     }
                     blocks[i] = (byte)(255 & id);
                     if (extblocks != null) {
-                        extblocks[j] = (byte) ((extblocks[j] & 0xF0) | ((id >> 8) & 0xF));
+                        extid = (byte) ((extid & 0xF0) | ((id >> 8) & 0xF));
                     }
-                    data[j] = (byte) ((data[j] & 0xF0) | (meta & 0xF));
+                    datavals = (byte) ((datavals & 0xF0) | (meta & 0xF));
                     bcnt++;
                 }
                 i++;
@@ -129,6 +130,9 @@ public class WorldMapper {
                 idmataval = (id << 4) | meta;
                 newidmetaval = blkid_map[idmataval];
                 if (newidmetaval != idmataval) {    // New value?
+                    if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
+                        deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
+                    }
                     id = (newidmetaval >> 4);
                     meta = (newidmetaval & 0xF);
                     if ((id > 256) && (extblocks == null)) {
@@ -137,15 +141,19 @@ public class WorldMapper {
                     }
                     blocks[i] = (byte)(255 & id);
                     if (extblocks != null) {
-                        extblocks[j] = (byte) ((extblocks[j] & 0x0F) | ((id >> 4) & 0xF0));
+                        extid = (byte) ((extid & 0x0F) | ((id >> 4) & 0xF0));
                     }
-                    data[j] = (byte) ((data[j] & 0x0F) | ((meta << 4) & 0xF0));
+                    datavals = (byte) ((datavals & 0x0F) | ((meta << 4) & 0xF0));
                     bcnt++;
+                }
+                data[j] = (byte)(0xFF & datavals);
+                if (extblocks != null) {
+                    extblocks[j] = (byte)(0xFF & extid);
                 }
                 i++;
             }
         }
-        private void deleteTileEntity(int x, int y, int z) {
+        private void deleteTileEntity(int x, int y, int z, int idmeta) {
             if (new_tileents == null) {
                 new_tileents = new LinkedList<CompoundTag>(tileents);
             }
