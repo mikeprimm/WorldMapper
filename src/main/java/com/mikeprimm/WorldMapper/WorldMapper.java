@@ -1,6 +1,5 @@
 package com.mikeprimm.WorldMapper;
 
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,7 +16,6 @@ import org.spout.nbt.CompoundMap;
 import org.spout.nbt.CompoundTag;
 import org.spout.nbt.ListTag;
 import org.spout.nbt.Tag;
-import org.spout.nbt.stream.NBTInputStream;
 import org.spout.nbt.util.NBTMapper;
 
 import com.google.gson.Gson;
@@ -25,8 +23,17 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 public class WorldMapper {
+    // Biome names, ordered by index/ID - lowercase with spaces removed (as done in MCPatcher)
+    public static final String[] biomes = {
+         "ocean", "plains", "desert", "extremehills", "forest", "taiga", "swampland", "river", "hell",
+         "sky", "frozenocean", "frozenriver", "iceplains", "icemountains", "mushroomisland", "mushroomislandshore",
+         "beach", "deserthills", "foresthills", "taigahills", "extremehillsedge", "jungle", "junglehills"
+    };
+         
     // Index is block ID * 16 + meta, value is new block ID *16 + meta
     private static int blkid_map[] = new int[4096 * 16];
+    private static int biome_blkid_map[][] = new int[256][];
+    private static BitSet blkid_biome_specific = new BitSet(); // Flags which source IDs to scrap tile entity
     private static BitSet blkid_toss_tileentity = new BitSet(); // Flags which source IDs to scrap tile entity
 
     private static class BlockMapping {
@@ -35,6 +42,7 @@ public class WorldMapper {
         private int newblkid;
         private int newmeta = -1;
         private boolean tosstileentity = false;
+        private String biomes[] = null;
     }
     private static class MappingConfig {
         private BlockMapping[] blocks;
@@ -106,6 +114,9 @@ public class WorldMapper {
                 meta = (datavals & 0xF);
                 idmataval = (id << 4) | meta;
                 newidmetaval = blkid_map[idmataval];
+                int biomeid = biomes[(i & 0x7F) << 1];
+                newidmetaval = getBiomeSpecificID(idmataval, biomeid);
+                
                 if (newidmetaval != idmataval) {    // New value?
                     if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
                         deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
@@ -129,6 +140,8 @@ public class WorldMapper {
                 meta = (datavals & 0xF0) >> 4;
                 idmataval = (id << 4) | meta;
                 newidmetaval = blkid_map[idmataval];
+                biomeid = biomes[((i & 0x7F) << 1) + 1];
+                newidmetaval = getBiomeSpecificID(idmataval, biomeid);
                 if (newidmetaval != idmataval) {    // New value?
                     if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
                         deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
@@ -180,6 +193,9 @@ public class WorldMapper {
         for (int i = 0; i < blkid_map.length; i++) {
             blkid_map[i] = i;
         }
+        for (int i = 0; i < biome_blkid_map.length; i++) {
+            biome_blkid_map[i] = null;
+        }
         blkid_toss_tileentity.clear();
     }
     private static void processMapDefinition(MappingConfig cfg) throws IOException {
@@ -191,28 +207,33 @@ public class WorldMapper {
         // Traverse block mapping objects
         for (BlockMapping mb : cfg.blocks) {
             if (mb == null) continue;
-            // Now, fill in the mapping records
-            if (mb.meta < 0) {
-                for (int meta = 0; meta < 16; meta++) {
-                    int idx = (mb.blkid*16) + meta;
-                    if (mb.newmeta < 0)
-                        blkid_map[idx] = (mb.newblkid * 16) + meta;
-                    else
-                        blkid_map[idx] = (mb.newblkid * 16) + mb.newmeta;
-                    // If scrapping tile entity
-                    if(mb.tosstileentity) {
-                        blkid_toss_tileentity.set(idx);
+
+            if (mb.biomes != null) {    // Biome specific?
+                // Mark blockID+meta as having biome specific mapping
+                if (mb.meta < 0) {
+                    for (int meta = 0; meta < 16; meta++) {
+                        blkid_biome_specific.set((mb.blkid*16) + meta);
                     }
+                }
+                else {
+                    blkid_biome_specific.set((mb.blkid*16) + mb.meta);
+                }
+                for (int bidx = 0; bidx < mb.biomes.length; bidx++) {
+                    int biomeid = findBiomeIndex(mb.biomes[bidx]);
+                    if (biomeid < 0) {
+                        throw new IOException("Invalid biome name: " + mb.biomes[bidx]);
+                    }
+                    if (biome_blkid_map[biomeid] == null) {
+                        biome_blkid_map[biomeid] = new int[blkid_map.length];
+                        for (int i = 0; i < blkid_map.length; i++) {
+                            biome_blkid_map[biomeid][i] = i;
+                        }
+                    }
+                    updateMapping(mb, biome_blkid_map[biomeid]);
                 }
             }
             else {
-                if (mb.newmeta < 0)
-                    blkid_map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.meta;
-                else
-                    blkid_map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.newmeta;
-                if(mb.tosstileentity) {
-                    blkid_toss_tileentity.set((mb.blkid*16) + mb.meta);
-                }
+                updateMapping(mb, blkid_map);
             }
         }
         // Print parsed mapping
@@ -220,6 +241,31 @@ public class WorldMapper {
             if (blkid_map[i] != i) {
                 System.out.println("Map " + (i>>4) + ":" + (i & 0xF) + " to " + (blkid_map[i] >> 4) + ":" + (blkid_map[i] & 0xF) + 
                         (blkid_toss_tileentity.get(i)?", discard tile entity":""));
+            }
+        }
+    }
+    private static void updateMapping(BlockMapping mb, int[] map) {
+        // Now, fill in the mapping records
+        if (mb.meta < 0) {
+            for (int meta = 0; meta < 16; meta++) {
+                int idx = (mb.blkid*16) + meta;
+                if (mb.newmeta < 0)
+                    map[idx] = (mb.newblkid * 16) + meta;
+                else
+                    map[idx] = (mb.newblkid * 16) + mb.newmeta;
+                // If scrapping tile entity
+                if(mb.tosstileentity) {
+                    blkid_toss_tileentity.set(idx);
+                }
+            }   
+        }
+        else {
+            if (mb.newmeta < 0)
+                map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.meta;
+            else
+                map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.newmeta;
+            if(mb.tosstileentity) {
+                blkid_toss_tileentity.set((mb.blkid*16) + mb.meta);
             }
         }
     }
@@ -373,5 +419,27 @@ public class WorldMapper {
         }
         System.out.println("Copied " + srcfile.getPath() + " to " + destfile.getPath());
     }
-    
+    private static int findBiomeIndex(String name) {
+        String n = name.toLowerCase().replace(" ", "");
+        for (int i = 0; i < biomes.length; i++) {
+            if (biomes[i].equals(n)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    private static int getBiomeSpecificID(int idmetaval, int biomeid) {
+        // If biome specific mapping defined?
+        if (blkid_biome_specific.get(idmetaval)) {
+            int[] map = biome_blkid_map[biomeid];
+            if (map != null) {
+                int id = map[idmetaval];
+                if (id != idmetaval) {
+                    return id;
+                }
+            }
+        }
+        return blkid_map[idmetaval];
+    }
+
 }

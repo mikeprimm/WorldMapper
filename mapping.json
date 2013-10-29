@@ -1,624 +1,1704 @@
 {
     "blocks": [
-    	// Iron blocks (42:2) -> (2000:0)
         {
-            "blkid": 42,
-            "meta": 2,
-            "newblkid": 2000,
+            "blkid": 101,
+            "meta": 5,
+            "newblkid": 2013,
             "newmeta": 0
         },
-		// Oxidized Iron block (42:3 -> 2000:1)
         {
-            "blkid": 42,
-            "meta": 3,
-            "newblkid": 2000,
-            "newmeta": 1
-        },
-		// Bronze block (42:4 -> 2000:2)
-        {
-            "blkid": 42,
-            "meta": 4,
-            "newblkid": 2000,
-            "newmeta": 2
-        },
-		// Oxidized Iron block (42:5 -> 2000:3)
-        {
-            "blkid": 42,
-            "meta": 5,
-            "newblkid": 2000,
-            "newmeta": 3
-        },
-		// Oxidized Steel block (42:1 -> 2000:4)
-        {
-            "blkid": 42,
-            "meta": 1,
-            "newblkid": 2000,
-            "newmeta": 4
-        },       
-		// Bisque Stone block (1:1 -> 2001:0)
-        {
-            "blkid": 1,
-            "meta": 1,
-            "newblkid": 2001,
+            "blkid": 152,
+            "meta": 0,
+            "newblkid": 2004,
             "newmeta": 0
-        },       
-		// Dark Khaki Stone block (1:2 -> 2001:1)
+        },
         {
-            "blkid": 1,
+            "blkid": 152,
             "meta": 2,
-            "newblkid": 2001,
-            "newmeta": 1
-        },       
-		// Brown Stone block (1:3 -> 2001:2)
+            "newblkid": 2018,
+            "newmeta": 13
+        },
         {
-            "blkid": 1,
-            "meta": 3,
-            "newblkid": 2001,
-            "newmeta": 2
-        },       
-		// Beige Stone block (1:4 -> 2001:3)
-        {
-            "blkid": 1,
-            "meta": 4,
-            "newblkid": 2001,
-            "newmeta": 3
-        },       
-		// Floral White Stone block (1:5 -> 2001:4)
-        {
-            "blkid": 1,
-            "meta": 5,
-            "newblkid": 2001,
-            "newmeta": 4
-        },       
-		// Ghost White Stone block (1:6 -> 2001:5)
-        {
-            "blkid": 1,
-            "meta": 6,
-            "newblkid": 2001,
-            "newmeta": 5
-        },       
-		// Dim Grey Stone block (1:7 -> 2001:6)
-        {
-            "blkid": 1,
-            "meta": 7,
-            "newblkid": 2001,
-            "newmeta": 6
-        },       
-		// Papayawhip Stone block (1:8 -> 2001:7)
-        {
-            "blkid": 1,
-            "meta": 8,
-            "newblkid": 2001,
-            "newmeta": 7
-        },       
-		// Silver Stone block (1:9 -> 2001:8)
-        {
-            "blkid": 1,
-            "meta": 9,
-            "newblkid": 2001,
-            "newmeta": 8
-        },       
-		// Burlywood Stone block (1:10 -> 2001:9)
-        {
-            "blkid": 1,
-            "meta": 10,
-            "newblkid": 2001,
-            "newmeta": 9
-        },       
-		// Honeydew Stone block (1:11 -> 200!:10)
-        {
-            "blkid": 1,
-            "meta": 11,
-            "newblkid": 2001,
-            "newmeta": 10
-        },       
-		// Peru Stone block (1:12 -> 2001:11)
-        {
-            "blkid": 1,
-            "meta": 12,
-            "newblkid": 2001,
-            "newmeta": 11
-        },       
-		// Goldenrod Stone block (1:13 -> 2001:12)
-        {
-            "blkid": 1,
-            "meta": 13,
-            "newblkid": 2001,
+            "blkid": 152,
+            "meta": 1,
+            "newblkid": 2018,
             "newmeta": 12
-        },       
-		// Antique White Stone block (1:14 -> 2001:13)
+        },
         {
-            "blkid": 1,
+            "blkid": 101,
+            "meta": 1,
+            "newblkid": 2011,
+            "newmeta": 0
+        },
+        {
+            "blkid": 101,
+            "meta": 2,
+            "newblkid": 2011,
+            "newmeta": 1
+        },
+        {
+            "blkid": 101,
+            "meta": 3,
+            "newblkid": 2011,
+            "newmeta": 2
+        },
+        {
+            "blkid": 58,
+            "meta": 2,
+            "newblkid": 2023,
+            "newmeta": 0
+        },
+        {
+            "blkid": 58,
+            "meta": 3,
+            "newblkid": 2023,
+            "newmeta": 1
+        },
+        {
+            "blkid": 58,
+            "meta": 5,
+            "newblkid": 2023,
+            "newmeta": 2
+        },
+        {
+            "blkid": 58,
+            "meta": 1,
+            "newblkid": 2023,
+            "newmeta": 3
+        },
+        {
+            "blkid": 58,
+            "meta": 4,
+            "newblkid": 2023,
+            "newmeta": 4
+        },
+        {
+            "blkid": 58,
+            "meta": 0,
+            "newblkid": 2023,
+            "newmeta": 5
+        },
+        {
+            "blkid": 42,
+            "meta": 6,
+            "newblkid": 2000,
+            "newmeta": 3
+        },
+        {
+            "blkid": 88,
+            "meta": 1,
+            "newblkid": 2034,
+            "newmeta": 1
+        },
+        {
+            "blkid": 47,
+            "meta": 3,
+            "newblkid": 2028,
+            "newmeta": 2
+        },
+        {
+            "blkid": 47,
+            "meta": 2,
+            "newblkid": 2028,
+            "newmeta": 1
+        },
+        {
+            "blkid": 47,
+            "meta": 1,
+            "newblkid": 2028,
+            "newmeta": 0
+        },
+        {
+            "blkid": 20,
+            "meta": 2,
+            "newblkid": 2024,
+            "newmeta": 1
+        },
+        {
+            "blkid": 20,
+            "meta": 3,
+            "newblkid": 2024,
+            "newmeta": 2
+        },
+        {
+            "blkid": 20,
+            "meta": 1,
+            "newblkid": 2024,
+            "newmeta": 3
+        },
+        {
+            "blkid": 20,
+            "meta": 4,
+            "newblkid": 2024,
+            "newmeta": 0
+        },
+        {
+            "blkid": 121,
+            "meta": 4,
+            "newblkid": 2031,
+            "newmeta": 12
+        },
+        {
+            "blkid": 121,
+            "meta": 6,
+            "newblkid": 2031,
+            "newmeta": 13
+        },
+        {
+            "blkid": 121,
+            "meta": 7,
+            "newblkid": 2031,
+            "newmeta": 15
+        },
+        {
+            "blkid": 121,
+            "meta": 5,
+            "newblkid": 2031,
+            "newmeta": 14
+        },
+        {
+            "blkid": 42,
+            "meta": 4,
+            "newblkid": 2000,
+            "newmeta": 2
+        },
+        {
+            "blkid": 42,
+            "meta": 5,
+            "newblkid": 2000,
+            "newmeta": 3
+        },
+        {
+            "blkid": 30,
+            "meta": 4,
+            "newblkid": 2053,
+            "newmeta": 5
+        },
+        {
+            "blkid": 30,
+            "meta": 5,
+            "newblkid": 2053,
+            "newmeta": 6
+        },
+        {
+            "blkid": 19,
+            "meta": 2,
+            "newblkid": 2023,
+            "newmeta": 12
+        },
+        {
+            "blkid": 19,
+            "meta": 3,
+            "newblkid": 2023,
+            "newmeta": 13
+        },
+        {
+            "blkid": 19,
+            "meta": 4,
+            "newblkid": 2023,
+            "newmeta": 11
+        },
+        {
+            "blkid": 19,
+            "meta": 1,
+            "newblkid": 2023,
+            "newmeta": 10
+        },
+        {
+            "blkid": 30,
+            "meta": 7,
+            "newblkid": 2053,
+            "newmeta": 4
+        },
+        {
+            "blkid": 30,
+            "meta": 2,
+            "newblkid": 2053,
+            "newmeta": 3
+        },
+        {
+            "blkid": 30,
+            "meta": 7,
+            "newblkid": 2053,
+            "newmeta": 4
+        },
+        {
+            "blkid": 30,
+            "meta": 2,
+            "newblkid": 2053,
+            "newmeta": 3
+        },
+        {
+            "blkid": 101,
+            "meta": 6,
+            "newblkid": 2013,
+            "newmeta": 1
+        },
+        {
+            "blkid": 89,
+            "meta": 1,
+            "newblkid": 2032,
+            "newmeta": 1
+        },
+        {
+            "blkid": 99,
+            "meta": 15,
+            "newblkid": 2027,
+            "newmeta": 2
+        },
+        {
+            "blkid": 100,
+            "meta": 10,
+            "newblkid": 2027,
+            "newmeta": 2
+        },
+        {
+            "blkid": 99,
+            "meta": 10,
+            "newblkid": 2027,
+            "newmeta": 3
+        },
+        {
+            "blkid": 100,
+            "meta": 15,
+            "newblkid": 2027,
+            "newmeta": 3
+        },
+        {
+            "blkid": 25,
+            "meta": 0,
+            "newblkid": 2018,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 1,
+            "newblkid": 2018,
+            "newmeta": 1,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 2,
+            "newblkid": 2018,
+            "newmeta": 2,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 3,
+            "newblkid": 2018,
+            "newmeta": 3,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 4,
+            "newblkid": 2018,
+            "newmeta": 4,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 5,
+            "newblkid": 2018,
+            "newmeta": 5,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 6,
+            "newblkid": 2018,
+            "newmeta": 6,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 7,
+            "newblkid": 2018,
+            "newmeta": 7,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 8,
+            "newblkid": 2018,
+            "newmeta": 8,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 9,
+            "newblkid": 2018,
+            "newmeta": 9,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 10,
+            "newblkid": 2018,
+            "newmeta": 10,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 25,
+            "meta": 11,
+            "newblkid": 2018,
+            "newmeta": 11,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 79,
+            "meta": 3,
+            "newblkid": 2024,
+            "newmeta": 5
+        },
+        {
+            "blkid": 101,
+            "meta": 7,
+            "newblkid": 2013,
+            "newmeta": 2
+        },
+        {
+            "blkid": 3,
+            "meta": 1,
+            "newblkid": 2033,
+            "newmeta": 0
+        },
+        {
+            "blkid": 121,
+            "meta": 8,
+            "newblkid": 2031,
+            "newmeta": 0
+        },
+        {
+            "blkid": 121,
+            "meta": 10,
+            "newblkid": 2031,
+            "newmeta": 1
+        },
+        {
+            "blkid": 121,
+            "meta": 11,
+            "newblkid": 2031,
+            "newmeta": 3
+        },
+        {
+            "blkid": 121,
+            "meta": 9,
+            "newblkid": 2031,
+            "newmeta": 2
+        },
+        {
+            "blkid": 121,
+            "meta": 0,
+            "newblkid": 2031,
+            "newmeta": 4
+        },
+        {
+            "blkid": 121,
+            "meta": 1,
+            "newblkid": 2031,
+            "newmeta": 5
+        },
+        {
+            "blkid": 121,
+            "meta": 3,
+            "newblkid": 2031,
+            "newmeta": 7
+        },
+        {
+            "blkid": 121,
+            "meta": 2,
+            "newblkid": 2031,
+            "newmeta": 6
+        },
+        {
+            "blkid": 121,
+            "meta": 12,
+            "newblkid": 2031,
+            "newmeta": 8
+        },
+        {
+            "blkid": 121,
             "meta": 14,
-            "newblkid": 2001,
-            "newmeta": 13
+            "newblkid": 2031,
+            "newmeta": 9
         },
-        // Wooden fences (85:1 -> 2009:1)
         {
-            "blkid": 85,
-            "meta": 1,
-            "newblkid": 2009,
-            "newmeta": 1
-        },               
-        // Wooden fences (85:2 -> 2009:2)
-        {
-            "blkid": 85,
-            "meta": 2,
-            "newblkid": 2009,
-            "newmeta": 2
-        },               
-        // Wooden fences (85:3 -> 2009:3)
-        {
-            "blkid": 85,
-            "meta": 3,
-            "newblkid": 2009,
-            "newmeta": 3
+            "blkid": 121,
+            "meta": 15,
+            "newblkid": 2031,
+            "newmeta": 11
         },
-        // Wooden fences (85:4 -> 2009:4)
         {
-            "blkid": 85,
-            "meta": 4,
-            "newblkid": 2009,
-            "newmeta": 4
+            "blkid": 121,
+            "meta": 13,
+            "newblkid": 2031,
+            "newmeta": 10
         },
-        // Wooden fences (85:5 -> 2009:5)
-        {
-            "blkid": 85,
-            "meta": 5,
-            "newblkid": 2009,
-            "newmeta": 5
-        },
-        // Wooden fences (85:6 -> 2009:6)
         {
             "blkid": 85,
             "meta": 6,
             "newblkid": 2009,
             "newmeta": 6
         },
-        // Wooden fences (85:7 -> 2009:7)
         {
             "blkid": 85,
             "meta": 7,
             "newblkid": 2009,
             "newmeta": 7
         },
-        // Wooden fences (85:8 -> 2009:8)
         {
             "blkid": 85,
-            "meta": 8,
+            "meta": 4,
             "newblkid": 2009,
-            "newmeta": 8
+            "newmeta": 4
         },
-        // Wooden fences (85:9 -> 2009:9)
         {
             "blkid": 85,
-            "meta": 9,
+            "meta": 5,
             "newblkid": 2009,
-            "newmeta": 9
+            "newmeta": 5
         },
-        // Wooden fences (85:10 -> 2009:10)
         {
-            "blkid": 85,
-            "meta": 10,
-            "newblkid": 2009,
-            "newmeta": 10
+            "blkid": 113,
+            "meta": 2,
+            "newblkid": 2052,
+            "newmeta": 0
         },
-        // Wooden fences (85:11 -> 2009:11)
-        {
-            "blkid": 85,
-            "meta": 11,
-            "newblkid": 2009,
-            "newmeta": 11
-        },
-        // Wooden fences (85:12 -> 2009:12)
-        {
-            "blkid": 85,
-            "meta": 12,
-            "newblkid": 2009,
-            "newmeta": 12
-        },
-        // Wooden fences (85:13 -> 2009:13)
-        {
-            "blkid": 85,
-            "meta": 13,
-            "newblkid": 2009,
-            "newmeta": 13
-        },
-        // Wooden fences (85:14 -> 2009:14)
         {
             "blkid": 85,
             "meta": 14,
             "newblkid": 2009,
             "newmeta": 14
         },
-        // Wooden fences (85:15 -> 2009:15)
         {
             "blkid": 85,
             "meta": 15,
             "newblkid": 2009,
             "newmeta": 15
         },
-        // Crates (25:* -> 2018:*)
         {
-            "blkid": 25,
-            "newblkid": 2018,
-            "tosstileentity": true
-        },
-		// Plum Fruit Leaves (from 20:14)
-        {
-            "blkid": 20,
-            "meta": 14,
-            "newblkid": 2017,
-            "newmeta": 0
-        },
-		// Pomegrenade Fruit Leaves (from 20:9)
-        {
-            "blkid": 20,
-            "meta": 9,
-            "newblkid": 2017,
-            "newmeta": 1
-        },
-		// Weirwood Leaves (from 20:15)
-        {
-            "blkid": 20,
-            "meta": 15,
-            "newblkid": 2017,
-            "newmeta": 2
-        },
-	    // Apple Fruit Leaves (was 20:8)
-        {
-            "blkid": 20,
-            "meta": 8,
-            "newblkid": 2016,
-            "newmeta": 0
-        },
-		// Apricot Fruit Leaves (was 20:12)
-        {
-            "blkid": 20,
+            "blkid": 85,
             "meta": 12,
-            "newblkid": 2016,
-            "newmeta": 1
+            "newblkid": 2009,
+            "newmeta": 12
         },
-		// Cherry Fruit Leaves (was 20:11)
         {
-            "blkid": 20,
-            "meta": 11,
-            "newblkid": 2016,
-            "newmeta": 2
-        },
-		// Grape Fruit Leaves (was 20:5)
-        {
-            "blkid": 20,
-            "meta": 5,
-            "newblkid": 2016,
-            "newmeta": 3
-        },
-		// Lemon Fruit Leaves (was 20:10)
-        {
-            "blkid": 20,
-            "meta": 10,
-            "newblkid": 2016,
-            "newmeta": 4
-        },
-		// Lime Fruit Leaves (was 20:6)
-        {
-            "blkid": 20,
-            "meta": 6,
-            "newblkid": 2016,
-            "newmeta": 5
-        },
-		// Orange Fruit Leaves (was 20:7)
-        {
-            "blkid": 20,
-            "meta": 7,
-            "newblkid": 2016,
-            "newmeta": 6
-        },
-		// Peach Fruit Leaves (was 20:13)
-        {
-            "blkid": 20,
+            "blkid": 85,
             "meta": 13,
-            "newblkid": 2016,
-            "newmeta": 7
+            "newblkid": 2009,
+            "newmeta": 13
         },
-		// Candles (was 76:*)
         {
-            "blkid": 76,
-            "newblkid": 2014
-        },
-		// Axe block (facing east) (was 101:5)
-        {
-            "blkid": 101,
-            "meta": 5,
-            "newblkid": 2013,
-            "newmeta": 0
-        },
-		// Cleaver block (facing north) (was 101:6)
-        {
-            "blkid": 101,
-            "meta": 6,
-            "newblkid": 2013,
+            "blkid": 113,
+            "meta": 3,
+            "newblkid": 2052,
             "newmeta": 1
         },
-		// Dagger block (facing west) (was 101:7)
         {
-            "blkid": 101,
-            "meta": 7,
-            "newblkid": 2013,
-            "newmeta": 2
-        },
-		// Pickaxe block (facing south) (was 101:8)
-        {
-            "blkid": 101,
-            "meta": 8,
-            "newblkid": 2013,
-            "newmeta": 3
-        },
-		// Shovel block (facing west) (was 101:9)
-        {
-            "blkid": 101,
-            "meta": 9,
-            "newblkid": 2013,
-            "newmeta": 4
-        },
-        // Sand Skeleton (was 12:1) 
-        {
-            "blkid": 12,
-            "meta": 1,
-            "newblkid": 2012,
-            "newmeta": 2
-        },
-		// Wet Sand (was 12:2) 
-        {
-            "blkid": 12,
+            "blkid": 85,
             "meta": 2,
-            "newblkid": 2012,
-            "newmeta": 3
-        },
-		// Terracotta Sand (was 12:3) 
-        {
-            "blkid": 12,
-            "meta": 3,
-            "newblkid": 2012,
-            "newmeta": 4
-        },
-		// Pink/Orange Sand (was 12:4) 
-        {
-            "blkid": 12,
-            "meta": 4,
-            "newblkid": 2012,
-            "newmeta": 5
-        },
-		// Red Sand (was 12:5) 
-        {
-            "blkid": 12,
-            "meta": 5,
-            "newblkid": 2012,
-            "newmeta": 6
-        },
-		// Sand Stones (was 12:6) 
-        {
-            "blkid": 12,
-            "meta": 6,
-            "newblkid": 2012,
-            "newmeta": 7
-        },
-		// Wet Sand Stones (was 12:7) 
-        {
-            "blkid": 12,
-            "meta": 7,
-            "newblkid": 2012,
-            "newmeta": 8
-        },
-		// Iron Crossbar (was 101:1)
-        {
-            "blkid": 101,
-            "meta": 1,
-            "newblkid": 2011,
-            "newmeta": 0
-        },
-		// Oxidized Iron bars (was 101:2)
-        {
-            "blkid": 101,
-            "meta": 2,
-            "newblkid": 2011,
-            "newmeta": 1
-        },
-		// Oxidized Iron crossbar (was 101:3)
-        {
-            "blkid": 101,
-            "meta": 3,
-            "newblkid": 2011,
+            "newblkid": 2009,
             "newmeta": 2
         },
-		// Dark stone brick wall block (was 139:12)
         {
-            "blkid": 139,
-            "meta": 12,
-            "newblkid": 2010,
-            "newmeta": 0
-        },
-		// Light gray stone brick wall block (was 139:10)
-        {
-            "blkid": 139,
-            "meta": 10,
-            "newblkid": 2010,
-            "newmeta": 1
-        },
-		// Red clay stone brick wall block (was 139:6)
-        {
-            "blkid": 139,
-            "meta": 6,
-            "newblkid": 2010,
-            "newmeta": 2
-        },
-		// Sandstone brick wall block (was 139:4)
-        {
-            "blkid": 139,
-            "meta": 4,
-            "newblkid": 2010,
+            "blkid": 85,
+            "meta": 3,
+            "newblkid": 2009,
             "newmeta": 3
         },
-		// Red Sandstone brick wall block (was 139:3)
-        {
-            "blkid": 139,
-            "meta": 3,
-            "newblkid": 2010,
-            "newmeta": 4
-        },
-		// Bluegrey brick wall block (was 139:5)
-        {
-            "blkid": 139,
-            "meta": 5,
-            "newblkid": 2010,
-            "newmeta": 5
-        },
-		// Dark grey stone brick wall block (was 139:14)
-        {
-            "blkid": 139,
-            "meta": 14,
-            "newblkid": 2010,
-            "newmeta": 6
-        },
-		// Grey stone brick wall block (was 139:11)
-        {
-            "blkid": 139,
-            "meta": 11,
-            "newblkid": 2010,
-            "newmeta": 7
-        },
-		// Red stone brick wall block (was 139:11)
-        {
-            "blkid": 139,
-            "meta": 11,
-            "newblkid": 2010,
-            "newmeta": 8
-        },
-		// Red clay stone brick wall block (was 139:15)
-        {
-            "blkid": 139,
-            "meta": 15,
-            "newblkid": 2010,
-            "newmeta": 9
-        },
-		// Light gray stone brick wall block (was 139:13)
-        {
-            "blkid": 139,
-            "meta": 13,
-            "newblkid": 2010,
-            "newmeta": 10
-        },
-		// Oak fence (was 85:0)
         {
             "blkid": 85,
             "meta": 0,
             "newblkid": 2009,
             "newmeta": 0
         },
-		// Spruce fence (was 85:1)
         {
             "blkid": 85,
             "meta": 1,
             "newblkid": 2009,
             "newmeta": 1
         },
-		// Birch fence (was 85:2)
         {
-            "blkid": 85,
-            "meta": 2,
-            "newblkid": 2009,
+            "blkid": 113,
+            "meta": 1,
+            "newblkid": 2052,
             "newmeta": 2
         },
-		// Jungle fence (was 85:3)
         {
-            "blkid": 85,
-            "meta": 3,
-            "newblkid": 2009,
+            "blkid": 113,
+            "meta": 6,
+            "newblkid": 2052,
             "newmeta": 3
         },
-		// Oak bark fence (was 85:4)
         {
-            "blkid": 85,
-            "meta": 4,
-            "newblkid": 2009,
+            "blkid": 113,
+            "meta": 5,
+            "newblkid": 2052,
             "newmeta": 4
         },
-		// Spruce bark fence (was 85:5)
-        {
-            "blkid": 85,
-            "meta": 5,
-            "newblkid": 2009,
-            "newmeta": 5
-        },
-		// Birch bark fence (was 85:6)
-        {
-            "blkid": 85,
-            "meta": 6,
-            "newblkid": 2009,
-            "newmeta": 6
-        },
-		// Jungle bark fence (was 85:7)
-        {
-            "blkid": 85,
-            "meta": 7,
-            "newblkid": 2009,
-            "newmeta": 7
-        },
-		// Oak fence with vines fence (was 85:8)
-        {
-            "blkid": 85,
-            "meta": 8,
-            "newblkid": 2009,
-            "newmeta": 8
-        },
-		// Spruce fence with vines fence (was 85:9)
-        {
-            "blkid": 85,
-            "meta": 9,
-            "newblkid": 2009,
-            "newmeta": 9
-        },
-		// Birch fence with vines fence (was 85:10)
         {
             "blkid": 85,
             "meta": 10,
             "newblkid": 2009,
             "newmeta": 10
         },
-		// Jungle fence with vines fence (was 85:11)
         {
             "blkid": 85,
             "meta": 11,
             "newblkid": 2009,
             "newmeta": 11
         },
-		// Oak fence with grapevines fence (was 85:12)
         {
             "blkid": 85,
-            "meta": 12,
+            "meta": 8,
             "newblkid": 2009,
+            "newmeta": 8
+        },
+        {
+            "blkid": 85,
+            "meta": 9,
+            "newblkid": 2009,
+            "newmeta": 9
+        },
+        {
+            "blkid": 30,
+            "meta": 12,
+            "newblkid": 2053,
+            "newmeta": 11
+        },
+        {
+            "blkid": 30,
+            "meta": 11,
+            "newblkid": 2053,
+            "newmeta": 10
+        },
+        {
+            "blkid": 79,
+            "meta": 1,
+            "newblkid": 2024,
+            "newmeta": 4
+        },
+
+        {
+            "blkid": 41,
+            "meta": 1,
+            "newblkid": 2000,
+            "newmeta": 4
+        },
+        {
+            "blkid": 110,
+            "meta": 1,
+            "newblkid": 2033,
+            "newmeta": 1
+        },
+        {
+            "blkid": 30,
+            "meta": 9,
+            "newblkid": 2053,
+            "newmeta": 8
+        },
+        {
+            "blkid": 30,
+            "meta": 8,
+            "newblkid": 2053,
+            "newmeta": 7
+        },
+        {
+            "blkid": 42,
+            "meta": 2,
+            "newblkid": 2000,
+            "newmeta": 0
+        },
+        {
+            "blkid": 42,
+            "meta": 3,
+            "newblkid": 2000,
+            "newmeta": 1
+        },
+        {
+            "blkid": 65,
+            "meta": 2,
+            "newblkid": 2054,
+            "newmeta": 12,
+        	"biomes": [ "extremehills", "icemountains", "beach", "sky", "hell" ]
+        },
+        {
+            "blkid": 65,
+            "meta": 3,
+            "newblkid": 2054,
+            "newmeta": 8,
+        	"biomes": [ "extremehills", "icemountains", "beach", "sky", "hell" ]
+        },
+        {
+            "blkid": 65,
+            "meta": 4,
+            "newblkid": 2054,
+            "newmeta": 4,
+        	"biomes": [ "extremehills", "icemountains", "beach", "sky", "hell" ]
+        },
+        {
+            "blkid": 65,
+            "meta": 5,
+            "newblkid": 2054,
+            "newmeta": 0,
+        	"biomes": [ "extremehills", "icemountains", "beach", "sky", "hell" ]
+        },
+
+        {
+            "blkid": 65,
+            "meta": 2,
+            "newblkid": 2054,
+            "newmeta": 13,
+        	"biomes": [ "frozenocean", "taigahills", "iceplains", "mushroomisland", "ocean", "foresthills", "junglehills", "deserthills" ]
+        },
+        {
+            "blkid": 65,
+            "meta": 3,
+            "newblkid": 2054,
+            "newmeta": 9,
+        	"biomes": [ "frozenocean", "taigahills", "iceplains", "mushroomisland", "ocean", "foresthills", "junglehills", "deserthills" ]
+        },
+        {
+            "blkid": 65,
+            "meta": 4,
+            "newblkid": 2054,
+            "newmeta": 5,
+        	"biomes": [ "frozenocean", "taigahills", "iceplains", "mushroomisland", "ocean", "foresthills", "junglehills", "deserthills" ]
+        },
+        {
+            "blkid": 65,
+            "meta": 5,
+            "newblkid": 2054,
+            "newmeta": 1,
+        	"biomes": [ "frozenocean", "taigahills", "iceplains", "mushroomisland", "ocean", "foresthills", "junglehills", "deserthills" ]
+        },
+        {
+            "blkid": 89,
+            "meta": 2,
+            "newblkid": 2032,
+            "newmeta": 0
+        },
+        {
+            "blkid": 5,
+            "meta": 12,
+            "newblkid": 2030,
+            "newmeta": 11
+        },
+        {
+            "blkid": 20,
+            "meta": 8,
+            "newblkid": 2016,
+            "newmeta": 0
+        },
+        {
+            "blkid": 20,
+            "meta": 12,
+            "newblkid": 2016,
+            "newmeta": 1
+        },
+        {
+            "blkid": 20,
+            "meta": 11,
+            "newblkid": 2016,
+            "newmeta": 2
+        },
+        {
+            "blkid": 20,
+            "meta": 5,
+            "newblkid": 2016,
+            "newmeta": 3
+        },
+        {
+            "blkid": 20,
+            "meta": 10,
+            "newblkid": 2016,
+            "newmeta": 4
+        },
+        {
+            "blkid": 20,
+            "meta": 6,
+            "newblkid": 2016,
+            "newmeta": 5
+        },
+        {
+            "blkid": 20,
+            "meta": 7,
+            "newblkid": 2016,
+            "newmeta": 6
+        },
+        {
+            "blkid": 20,
+            "meta": 13,
+            "newblkid": 2016,
+            "newmeta": 7
+        },
+        {
+            "blkid": 20,
+            "meta": 14,
+            "newblkid": 2017,
+            "newmeta": 0
+        },
+        {
+            "blkid": 20,
+            "meta": 9,
+            "newblkid": 2017,
+            "newmeta": 1
+        },
+        {
+            "blkid": 20,
+            "meta": 15,
+            "newblkid": 2017,
+            "newmeta": 2
+        },
+        {
+            "blkid": 155,
+            "meta": 15,
+            "newblkid": 2027,
+            "newmeta": 1
+        },
+        {
+            "blkid": 88,
+            "meta": 2,
+            "newblkid": 2034,
+            "newmeta": 0
+        },
+        {
+            "blkid": 39,
+            "meta": 1,
+            "newblkid": 2061,
+            "newmeta": 0
+        },
+        {
+            "blkid": 39,
+            "meta": 2,
+            "newblkid": 2061,
+            "newmeta": 1
+        },
+        {
+            "blkid": 39,
+            "meta": 3,
+            "newblkid": 2061,
+            "newmeta": 2
+        },
+        {
+            "blkid": 39,
+            "meta": 4,
+            "newblkid": 2061,
+            "newmeta": 3
+        },
+        {
+            "blkid": 39,
+            "meta": 5,
+            "newblkid": 2061,
+            "newmeta": 4
+        },
+        {
+            "blkid": 39,
+            "meta": 6,
+            "newblkid": 2061,
+            "newmeta": 5
+        },
+        {
+            "blkid": 39,
+            "meta": 7,
+            "newblkid": 2061,
+            "newmeta": 6
+        },
+        {
+            "blkid": 39,
+            "meta": 8,
+            "newblkid": 2061,
+            "newmeta": 7
+        },
+        {
+            "blkid": 39,
+            "meta": 9,
+            "newblkid": 2061,
+            "newmeta": 8
+        },
+        {
+            "blkid": 39,
+            "meta": 10,
+            "newblkid": 2061,
+            "newmeta": 9
+        },
+        {
+            "blkid": 39,
+            "meta": 11,
+            "newblkid": 2061,
+            "newmeta": 10
+        },
+        {
+            "blkid": 39,
+            "meta": 12,
+            "newblkid": 2061,
+            "newmeta": 11
+        },
+        {
+            "blkid": 39,
+            "meta": 13,
+            "newblkid": 2061,
             "newmeta": 12
         },
-		// Spruce fence with grapevines fence (was 85:13)
         {
-            "blkid": 85,
-            "meta": 13,
-            "newblkid": 2009,
-            "newmeta": 13
+            "blkid": 40,
+            "meta": 1,
+            "newblkid": 2062,
+            "newmeta": 0
         },
-		// Birch fence with grapevines fence (was 85:14)
         {
-            "blkid": 85,
+            "blkid": 40,
+            "meta": 2,
+            "newblkid": 2062,
+            "newmeta": 1
+        },
+        {
+            "blkid": 40,
+            "meta": 3,
+            "newblkid": 2062,
+            "newmeta": 2
+        },
+        {
+            "blkid": 40,
+            "meta": 4,
+            "newblkid": 2062,
+            "newmeta": 3
+        },
+        {
+            "blkid": 40,
+            "meta": 5,
+            "newblkid": 2062,
+            "newmeta": 4
+        },
+        {
+            "blkid": 40,
+            "meta": 6,
+            "newblkid": 2062,
+            "newmeta": 5
+        },
+        {
+            "blkid": 40,
+            "meta": 7,
+            "newblkid": 2062,
+            "newmeta": 6
+        },
+        {
+            "blkid": 40,
+            "meta": 8,
+            "newblkid": 2062,
+            "newmeta": 7
+        },
+        {
+            "blkid": 40,
+            "meta": 9,
+            "newblkid": 2062,
+            "newmeta": 8
+        },
+        {
+            "blkid": 87,
+            "meta": 3,
+            "newblkid": 2033,
+            "newmeta": 2
+        },
+        {
+            "blkid": 15,
+            "meta": 2,
+            "newblkid": 21,
+            "newmeta": 0
+        },
+        {
+            "blkid": 15,
+            "meta": 1,
+            "newblkid": 57,
+            "newmeta": 0
+        },
+        {
+            "blkid": 15,
+            "meta": 3,
+            "newblkid": 129,
+            "newmeta": 0
+        },
+        {
+            "blkid": 101,
+            "meta": 9,
+            "newblkid": 2013,
+            "newmeta": 3
+        },
+        {
+            "blkid": 4,
             "meta": 14,
-            "newblkid": 2009,
+            "newblkid": 159,
             "newmeta": 14
         },
-		// Jungle fence with grapevines fence (was 85:15)
         {
-            "blkid": 85,
+            "blkid": 4,
             "meta": 15,
-            "newblkid": 2009,
+            "newblkid": 159,
             "newmeta": 15
         },
+        {
+            "blkid": 4,
+            "meta": 13,
+            "newblkid": 159,
+            "newmeta": 13
+        },
+        {
+            "blkid": 4,
+            "meta": 12,
+            "newblkid": 159,
+            "newmeta": 11
+        },
+        {
+            "blkid": 147,
+            "newblkid": 2013,
+            "newmeta": 5
+        },
+        {
+            "blkid": 148,
+            "newblkid": 2013,
+            "newmeta": 6
+        },
+        {
+            "blkid": 91,
+            "newblkid": 2050,
+            "newmeta": 0
+        },
+        {
+            "blkid": 30,
+            "meta": 10,
+            "newblkid": 2053,
+            "newmeta": 9
+        },
+        {
+            "blkid": 30,
+            "meta": 6,
+            "newblkid": 2053,
+            "newmeta": 2
+        },
+        {
+            "blkid": 30,
+            "meta": 1,
+            "newblkid": 2053,
+            "newmeta": 1
+        },
+        {
+            "blkid": 12,
+            "meta": 4,
+            "newblkid": 2012,
+            "newmeta": 3
+        },
+        {
+            "blkid": 12,
+            "meta": 5,
+            "newblkid": 2012,
+            "newmeta": 4
+        },
+        {
+            "blkid": 12,
+            "meta": 1,
+            "newblkid": 2012,
+            "newmeta": 0,
+            "biomes": [ "plains", "mushroomisland", "mushroomislandshore", "taiga", "taigahills", "icemountains", "iceplains", "extremehills", "extremehillsedge", "swampland", "forest", "foresthills", "jungle", "junglehills", "desert", "deserthills", "hell" ]
+        },
+        {
+            "blkid": 12,
+            "meta": 1,
+            "newblkid": 2012,
+            "newmeta": 0
+        },
+        {
+            "blkid": 12,
+            "meta": 6,
+            "newblkid": 2012,
+            "newmeta": 5
+        },
+        {
+            "blkid": 12,
+            "meta": 3,
+            "newblkid": 2012,
+            "newmeta": 2
+        },
+        {
+            "blkid": 12,
+            "meta": 2,
+            "newblkid": 2012,
+            "newmeta": 1
+        },
+        {
+            "blkid": 12,
+            "meta": 7,
+            "newblkid": 2012,
+            "newmeta": 6
+        },
+        {
+            "blkid": 24,
+            "meta": 3,
+            "newblkid": 2025,
+            "newmeta": 0
+        },
+        {
+            "blkid": 24,
+            "meta": 4,
+            "newblkid": 2025,
+            "newmeta": 1
+        },
+        {
+            "blkid": 24,
+            "meta": 5,
+            "newblkid": 2025,
+            "newmeta": 2
+        },
+        {
+            "blkid": 24,
+            "meta": 6,
+            "newblkid": 2025,
+            "newmeta": 5
+        },
+        {
+            "blkid": 24,
+            "meta": 7,
+            "newblkid": 2025,
+            "newmeta": 6
+        },
+        {
+            "blkid": 24,
+            "meta": 8,
+            "newblkid": 2025,
+            "newmeta": 8
+        },
+        {
+            "blkid": 24,
+            "meta": 9,
+            "newblkid": 2025,
+            "newmeta": 9
+        },
+        {
+            "blkid": 24,
+            "meta": 10,
+            "newblkid": 2025,
+            "newmeta": 3
+        },
+        {
+            "blkid": 24,
+            "meta": 11,
+            "newblkid": 2025,
+            "newmeta": 7
+        },
+        {
+            "blkid": 56,
+            "newblkid": 2025,
+            "newmeta": 4
+        },
+        {
+            "blkid": 24,
+            "meta": 14,
+            "newblkid": 2025,
+            "newmeta": 10
+        },
+        {
+            "blkid": 24,
+            "meta": 15,
+            "newblkid": 2025,
+            "newmeta": 12
+        },
+        {
+            "blkid": 43,
+            "meta": 1,
+            "newblkid": 2041,
+            "newmeta": 0,
+            "biomes": [ "frozenocean", "taigahills","extremehills","plains","mushroomislandshore","river","swampland","foresthills" ]
+        },
+        {
+            "blkid": 43,
+            "meta": 1,
+            "newblkid": 2041,
+            "newmeta": 6,
+            "biomes": [ "icemountains","frozenriver","extremehillsedge","mushroomisland","sky","forest","junglehills","hell","deserthills" ]
+        },
+        {
+            "blkid": 44,
+            "meta": 1,
+            "newblkid": 2042,
+            "newmeta": 0,
+            "biomes": [ "frozenocean", "taigahills","extremehills","plains","mushroomislandshore","river","swampland","foresthills" ]
+        },
+        {
+            "blkid": 44,
+            "meta": 9,
+            "newblkid": 2042,
+            "newmeta": 8,
+            "biomes": [ "frozenocean", "taigahills","extremehills","plains","mushroomislandshore","river","swampland","foresthills" ]
+        },
+        {
+            "blkid": 44,
+            "meta": 1,
+            "newblkid": 2042,
+            "newmeta": 6,
+            "biomes": [ "icemountains","frozenriver","extremehillsedge","mushroomisland","sky","forest","junglehills","hell","deserthills" ]
+        },
+        {
+            "blkid": 44,
+            "meta": 9,
+            "newblkid": 2042,
+            "newmeta": 14,
+            "biomes": [ "icemountains","frozenriver","extremehillsedge","mushroomisland","sky","forest","junglehills","hell","deserthills" ]
+        },
+        {
+            "blkid": 128,
+            "newblkid": 2015,
+            "biomes": [ "frozenocean", "taigahills","extremehills","plains","mushroomislandshore","river","swampland","foresthills" ]
+        },
+        {
+            "blkid": 128,
+            "newblkid": 2036,
+            "biomes": [ "icemountains","frozenriver","extremehillsedge","mushroomisland","sky","forest","junglehills","hell","deserthills" ]
+        },
+        {
+            "blkid": 98,
+            "meta": 9,
+            "newblkid": 2025,
+            "newmeta": 11
+        },
+        {
+            "blkid": 110,
+            "meta": 1,
+            "newblkid": 2033,
+            "newmeta": 1
+        },
+        {
+            "blkid": 101,
+            "meta": 9,
+            "newblkid": 2013,
+            "newmeta": 4
+        },
+        {
+            "blkid": 155,
+            "meta": 10,
+            "newblkid": 2026,
+            "newmeta": 0
+        },
+        {
+            "blkid": 155,
+            "meta": 11,
+            "newblkid": 2026,
+            "newmeta": 1
+        },
+        {
+            "blkid": 155,
+            "meta": 12,
+            "newblkid": 2026,
+            "newmeta": 2
+        },
+        {
+            "blkid": 155,
+            "meta": 13,
+            "newblkid": 2026,
+            "newmeta": 3
+        },
+        {
+            "blkid": 155,
+            "meta": 14,
+            "newblkid": 2026,
+            "newmeta": 4
+        },
+        {
+            "blkid": 125,
+            "meta": 7,
+            "newblkid": 2048,
+            "newmeta": 0
+        },
+        {
+            "blkid": 126,
+            "meta": 7,
+            "newblkid": 2047,
+            "newmeta": 0
+        },
+        {
+            "blkid": 126,
+            "meta": 15,
+            "newblkid": 2047,
+            "newmeta": 8
+        },
+        {
+            "blkid": 125,
+            "meta": 5,
+            "newblkid": 2048,
+            "newmeta": 5
+        },
+        {
+            "blkid": 126,
+            "meta": 5,
+            "newblkid": 2047,
+            "newmeta": 5
+        },
+        {
+            "blkid": 126,
+            "meta": 13,
+            "newblkid": 2047,
+            "newmeta": 13
+        },
+        {
+            "blkid": 125,
+            "meta": 6,
+            "newblkid": 2048,
+            "newmeta": 6
+        },
+        {
+            "blkid": 126,
+            "meta": 6,
+            "newblkid": 2047,
+            "newmeta": 6
+        },
+        {
+            "blkid": 126,
+            "meta": 14,
+            "newblkid": 2047,
+            "newmeta": 14
+        },
+        {
+            "blkid": 125,
+            "meta": 4,
+            "newblkid": 2048,
+            "newmeta": 2
+        },
+        {
+            "blkid": 126,
+            "meta": 4,
+            "newblkid": 2047,
+            "newmeta": 2
+        },
+        {
+            "blkid": 126,
+            "meta": 12,
+            "newblkid": 2047,
+            "newmeta": 10
+        },
+        {
+            "blkid": 125,
+            "meta": 4,
+            "newblkid": 2048,
+            "newmeta": 2
+        },
+        {
+            "blkid": 43,
+            "meta": 7,
+            "newblkid": 2029,
+            "newmeta": 11,
+            "biomes": [ "frozenriver","frozenocean","plains","ocean","swampland","forest","junglehills" ]
+        },
+        {
+            "blkid": 44,
+            "meta": 7,
+            "newblkid": 2045,
+            "newmeta": 3,
+            "biomes": [ "frozenriver","frozenocean","plains","ocean","swampland","forest","junglehills" ]
+        },
+        {
+            "blkid": 44,
+            "meta": 15,
+            "newblkid": 2045,
+            "newmeta": 11,
+            "biomes": [ "frozenriver","frozenocean","plains","ocean","swampland","forest","junglehills" ]
+        },
+        {
+            "blkid": 156,
+            "newblkid": 2049,
+            "biomes": [ "frozenriver","frozenocean","plains","ocean","swampland","forest","junglehills" ]
+        },
+        {
+            "blkid": 43,
+            "meta": 7,
+            "newblkid": 2029,
+            "newmeta": 12,
+            "biomes": [ "icemountains","extremehillsedge","mushroomislandshore","sky","hell" ]
+        },
+        {
+            "blkid": 44,
+            "meta": 7,
+            "newblkid": 2045,
+            "newmeta": 4,
+            "biomes": [ "icemountains","extremehillsedge","mushroomislandshore","sky","hell" ]
+        },
+        {
+            "blkid": 44,
+            "meta": 15,
+            "newblkid": 2045,
+            "newmeta": 12,
+            "biomes": [ "icemountains","extremehillsedge","mushroomislandshore","sky","hell" ]
+        },
+        {
+            "blkid": 156,
+            "newblkid": 2050,
+            "biomes": [ "icemountains","extremehillsedge","mushroomislandshore","sky","hell" ]
+        },
+        {
+            "blkid": 43,
+            "meta": 7,
+            "newblkid": 2029,
+            "newmeta": 13,
+            "biomes": [ "iceplains","extremehills","mushroomisland","foresthills","jungle","deserthills" ]
+        },
+        {
+            "blkid": 44,
+            "meta": 7,
+            "newblkid": 2045,
+            "newmeta": 5,
+            "biomes": [ "iceplains","extremehills","mushroomisland","foresthills","jungle","deserthills" ]
+        },
+        {
+            "blkid": 44,
+            "meta": 15,
+            "newblkid": 2045,
+            "newmeta": 13,
+            "biomes": [ "iceplains","extremehills","mushroomisland","foresthills","jungle","deserthills" ]
+        },
+        {
+            "blkid": 156,
+            "newblkid": 2051,
+            "biomes": [ "iceplains","extremehills","mushroomisland","foresthills","jungle","deserthills" ]
+        },
+        {
+            "blkid": 30,
+            "meta": 3,
+            "newblkid": 2053,
+            "newmeta": 0
+        },
+        {
+            "blkid": 42,
+            "meta": 1,
+            "newblkid": 2000,
+            "newmeta": 2
+        },
+        {
+            "blkid": 98,
+            "meta": 4,
+            "newblkid": 2025,
+            "newmeta": 15
+        },
+        {
+            "blkid": 98,
+            "meta": 5,
+            "newblkid": 2004,
+            "newmeta": 6
+        },
+        {
+            "blkid": 98,
+            "meta": 6,
+            "newblkid": 2004,
+            "newmeta": 10
+        },
+        {
+            "blkid": 98,
+            "meta": 7,
+            "newblkid": 2004,
+            "newmeta": 7
+        },
+        {
+            "blkid": 98,
+            "meta": 8,
+            "newblkid": 2004,
+            "newmeta": 11
+        },
+        {
+            "blkid": 98,
+            "meta": 10,
+            "newblkid": 2030,
+            "newmeta": 8
+        },
+        {
+            "blkid": 98,
+            "meta": 11,
+            "newblkid": 2025,
+            "newmeta": 13
+        },
+        {
+            "blkid": 98,
+            "meta": 12,
+            "newblkid": 2025,
+            "newmeta": 14
+        },
+        {
+            "blkid": 58,
+            "meta": 6,
+            "newblkid": 2023,
+            "newmeta": 6
+        },
+        {
+            "blkid": 58,
+            "meta": 9,
+            "newblkid": 2023,
+            "newmeta": 8
+        },
+        {
+            "blkid": 58,
+            "meta": 8,
+            "newblkid": 2023,
+            "newmeta": 9
+        },
+        {
+            "blkid": 58,
+            "meta": 7,
+            "newblkid": 2023,
+            "newmeta": 7
+        },
+        {
+            "blkid": 1,
+            "meta": 7,
+            "newblkid": 2029,
+            "newmeta": 0
+        },
+        {
+            "blkid": 1,
+            "meta": 6,
+            "newblkid": 2029,
+            "newmeta": 1
+        },
+        {
+            "blkid": 1,
+            "meta": 4,
+            "newblkid": 2029,
+            "newmeta": 2
+        },
+        {
+            "blkid": 1,
+            "meta": 1,
+            "newblkid": 2029,
+            "newmeta": 3
+        },
+        {
+            "blkid": 1,
+            "meta": 3,
+            "newblkid": 2029,
+            "newmeta": 4
+        },
+        {
+            "blkid": 1,
+            "meta": 15,
+            "newblkid": 2029,
+            "newmeta": 5
+        },
+        {
+            "blkid": 1,
+            "meta": 5,
+            "newblkid": 2029,
+            "newmeta": 6
+        },
+        {
+            "blkid": 1,
+            "meta": 14,
+            "newblkid": 2029,
+            "newmeta": 7
+        },
+        {
+            "blkid": 1,
+            "meta": 2,
+            "newblkid": 2029,
+            "newmeta": 8
+        },
+        {
+            "blkid": 139,
+            "meta": 12,
+            "newblkid": 2010,
+            "newmeta": 0
+        },
+        {
+            "blkid": 139,
+            "meta": 10,
+            "newblkid": 2010,
+            "newmeta": 1
+        },
+        {
+            "blkid": 139,
+            "meta": 6,
+            "newblkid": 2010,
+            "newmeta": 2
+        },
+        {
+            "blkid": 139,
+            "meta": 4,
+            "newblkid": 2010,
+            "newmeta": 3
+        },
+        {
+            "blkid": 139,
+            "meta": 3,
+            "newblkid": 2010,
+            "newmeta": 4
+        },
+        {
+            "blkid": 139,
+            "meta": 5,
+            "newblkid": 2010,
+            "newmeta": 5
+        },
+        {
+            "blkid": 139,
+            "meta": 14,
+            "newblkid": 2010,
+            "newmeta": 6
+        },
+        {
+            "blkid": 139,
+            "meta": 11,
+            "newblkid": 2010,
+            "newmeta": 7
+        },
+        {
+            "blkid": 139,
+            "meta": 9,
+            "newblkid": 2010,
+            "newmeta": 8
+        },
+        {
+            "blkid": 139,
+            "meta": 15,
+            "newblkid": 2010,
+            "newmeta": 9
+        },
+        {
+            "blkid": 139,
+            "meta": 13,
+            "newblkid": 2010,
+            "newmeta": 10
+        },
+        {
+            "blkid": 139,
+            "meta": 2,
+            "newblkid": 2022,
+            "newmeta": 3
+        },
+        {
+            "blkid": 139,
+            "meta": 8,
+            "newblkid": 2010,
+            "newmeta": 11
+        },
+        {
+            "blkid": 139,
+            "meta": 7,
+            "newblkid": 2010,
+            "newmeta": 12
+        },
+        {
+            "blkid": 129,
+            "meta": 4,
+            "newblkid": 2027,
+            "newmeta": 4
+        },
+        {
+            "blkid": 129,
+            "meta": 1,
+            "newblkid": 2027,
+            "newmeta": 8
+        },
+        {
+            "blkid": 129,
+            "meta": 2,
+            "newblkid": 2027,
+            "newmeta": 8
+        },
+        {
+            "blkid": 129,
+            "meta": 3,
+            "newblkid": 2027,
+            "newmeta": 4
+        },
+        {
+            "blkid": 5,
+            "meta": 7,
+            "newblkid": 2030,
+            "newmeta": 5
+        },
+        {
+            "blkid": 35,
+            "meta": 5,
+            "newblkid": 2030,
+            "newmeta": 6
+        },
+        {
+            "blkid": 35,
+            "meta": 6,
+            "newblkid": 2030,
+            "newmeta": 2
+        },
+        {
+            "blkid": 5,
+            "meta": 8,
+            "newblkid": 2030,
+            "newmeta": 0
+        },
+        {
+            "blkid": 35,
+            "meta": 2,
+            "newblkid": 2030,
+            "newmeta": 4
+        },
+        {
+            "blkid": 5,
+            "meta": 6,
+            "newblkid": 2030,
+            "newmeta": 3
+        },
+        {
+            "blkid": 5,
+            "meta": 5,
+            "newblkid": 2030,
+            "newmeta": 1
+        },
+        {
+            "blkid": 5,
+            "meta": 4,
+            "newblkid": 2030,
+            "newmeta": 7
+        },
+        {
+            "blkid": 5,
+            "meta": 11,
+            "newblkid": 35,
+            "newmeta": 5
+        },
+        {
+            "blkid": 5,
+            "meta": 10,
+            "newblkid": 35,
+            "newmeta": 6
+        },
+        {
+            "blkid": 5,
+            "meta": 9,
+            "newblkid": 35,
+            "newmeta": 2
+        },
+        {
+            "blkid": 35,
+            "meta": 12,
+            "newblkid": 2030,
+            "newmeta": 9
+        },
+        {
+            "blkid": 159,
+            "meta": 12,
+            "newblkid": 2030,
+            "newmeta": 10
+        },
+        {
+            "blkid": 133,
+            "newblkid": 2029,
+            "newmeta": 9
+        },
+        {
+            "blkid": 21,
+            "newblkid": 2029,
+            "newmeta": 10
+        },
+        {
+            "blkid": 22,
+            "newblkid": 2029,
+            "newmeta": 11
+        }
     ]
 }
