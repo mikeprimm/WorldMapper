@@ -366,11 +366,12 @@ public class WorldMapper {
         int bcnt = 0;
         int tecnt = 0;
         int cupdated = 0;
+        RegionFile destf = null;
         try {
             // Copy source file to destination
             processFileCopy(srcfile, destfile);
             // Load region file
-            RegionFile destf = new RegionFile(destfile);
+            destf = new RegionFile(destfile);
             destf.load();
             int cnt = 0;
             for (int x = 0; x < 32; x++) {
@@ -398,6 +399,9 @@ public class WorldMapper {
         } finally {
             if (!success) {
                 destfile.delete();
+            }
+            if (destf != null) {
+                destf.cleanup();
             }
         }
     }
