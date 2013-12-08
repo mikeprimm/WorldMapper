@@ -159,14 +159,14 @@
         {
             "blkid": 42,
             "meta": 4,
-            "newblkid": 2000,
-            "newmeta": 2
+            "newblkid": 22,
+            "newmeta": 0
         },
         {
             "blkid": 42,
             "meta": 5,
             "newblkid": 2000,
-            "newmeta": 3
+            "newmeta": 1
         },
         {
             "blkid": 30,
@@ -203,18 +203,6 @@
             "meta": 1,
             "newblkid": 2023,
             "newmeta": 10
-        },
-        {
-            "blkid": 30,
-            "meta": 7,
-            "newblkid": 2053,
-            "newmeta": 4
-        },
-        {
-            "blkid": 30,
-            "meta": 2,
-            "newblkid": 2053,
-            "newmeta": 3
         },
         {
             "blkid": 30,
@@ -359,6 +347,12 @@
             "meta": 7,
             "newblkid": 2013,
             "newmeta": 2
+        },
+        {
+            "blkid": 31,
+            "meta": 0,
+            "newblkid": 2063,
+            "newmeta": 0
         },
         {
             "blkid": 3,
@@ -582,7 +576,12 @@
             "newblkid": 2024,
             "newmeta": 4
         },
-
+        {
+            "blkid": 102,
+            "meta": 1,
+            "newblkid": 2057,
+            "newmeta": 0
+        },
         {
             "blkid": 41,
             "meta": 1,
@@ -610,14 +609,14 @@
         {
             "blkid": 42,
             "meta": 2,
-            "newblkid": 2000,
+            "newblkid": 133,
             "newmeta": 0
         },
         {
             "blkid": 42,
             "meta": 3,
             "newblkid": 2000,
-            "newmeta": 1
+            "newmeta": 0
         },
         {
             "blkid": 65,
@@ -676,12 +675,20 @@
             "newmeta": 1,
         	"biomes": [ "frozenocean", "taigahills", "iceplains", "mushroomisland", "ocean", "foresthills", "junglehills", "deserthills" ]
         },
+        
         {
             "blkid": 89,
             "meta": 2,
             "newblkid": 2032,
             "newmeta": 0
         },
+        {
+            "blkid": 101,
+            "meta": 4,
+            "newblkid": 2065,
+            "newmeta": 1
+        },
+        
         {
             "blkid": 5,
             "meta": 12,
@@ -954,13 +961,13 @@
         },
         {
             "blkid": 147,
-            "newblkid": 2013,
-            "newmeta": 5
+            "newblkid": 2066,
+            "newmeta": 0
         },
         {
             "blkid": 148,
-            "newblkid": 2013,
-            "newmeta": 6
+            "newblkid": 2066,
+            "newmeta": 1
         },
         {
             "blkid": 91,
@@ -996,13 +1003,6 @@
             "meta": 5,
             "newblkid": 2012,
             "newmeta": 4
-        },
-        {
-            "blkid": 12,
-            "meta": 1,
-            "newblkid": 2012,
-            "newmeta": 0,
-            "biomes": [ "plains", "mushroomisland", "mushroomislandshore", "taiga", "taigahills", "icemountains", "iceplains", "extremehills", "extremehillsedge", "swampland", "forest", "foresthills", "jungle", "junglehills", "desert", "deserthills", "hell" ]
         },
         {
             "blkid": 12,
@@ -1172,8 +1172,8 @@
         {
             "blkid": 101,
             "meta": 9,
-            "newblkid": 2013,
-            "newmeta": 4
+            "newblkid": 2064,
+            "newmeta": 0
         },
         {
             "blkid": 155,
@@ -1224,12 +1224,6 @@
             "newmeta": 8
         },
         {
-            "blkid": 125,
-            "meta": 5,
-            "newblkid": 2048,
-            "newmeta": 5
-        },
-        {
             "blkid": 126,
             "meta": 5,
             "newblkid": 2047,
@@ -1242,12 +1236,6 @@
             "newmeta": 13
         },
         {
-            "blkid": 125,
-            "meta": 6,
-            "newblkid": 2048,
-            "newmeta": 6
-        },
-        {
             "blkid": 126,
             "meta": 6,
             "newblkid": 2047,
@@ -1258,12 +1246,6 @@
             "meta": 14,
             "newblkid": 2047,
             "newmeta": 14
-        },
-        {
-            "blkid": 125,
-            "meta": 4,
-            "newblkid": 2048,
-            "newmeta": 2
         },
         {
             "blkid": 126,
@@ -1282,6 +1264,12 @@
             "meta": 4,
             "newblkid": 2048,
             "newmeta": 2
+        },
+        {
+            "blkid": 125,
+            "meta": 12,
+            "newblkid": 2048,
+            "newmeta": 10
         },
         {
             "blkid": 43,
@@ -1424,7 +1412,7 @@
         {
             "blkid": 58,
             "meta": 6,
-            "newblkid": 2023,
+            "newblkid": 2066,
             "newmeta": 6
         },
         {
@@ -1699,6 +1687,36 @@
             "blkid": 22,
             "newblkid": 2029,
             "newmeta": 11
+        },
+        {
+            "blkid": 124,
+            "meta": 0,
+            "newblkid": 89,
+            "newmeta": 0
+        },
+        {
+            "blkid": 99,
+            "meta": 0,
+            "newblkid": 2033,
+            "newmeta": 7
+        },
+        {
+            "blkid": 100,
+            "meta": 0,
+            "newblkid": 2033,
+            "newmeta": 7
+        },
+        {
+            "blkid": 99,
+            "meta": 14,
+            "newblkid": 2033,
+            "newmeta": 8
+        },
+        {
+            "blkid": 100,
+            "meta": 14,
+            "newblkid": 2033,
+            "newmeta": 14
         }
     ]
 }
