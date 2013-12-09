@@ -971,7 +971,7 @@
         },
         {
             "blkid": 91,
-            "newblkid": 2050,
+            "newblkid": 2058,
             "newmeta": 0
         },
         {
@@ -1136,15 +1136,15 @@
         {
             "blkid": 44,
             "meta": 1,
-            "newblkid": 2042,
-            "newmeta": 6,
+            "newblkid": 2045,
+            "newmeta": 2,
             "biomes": [ "icemountains","frozenriver","extremehillsedge","mushroomisland","sky","forest","junglehills","hell","deserthills" ]
         },
         {
             "blkid": 44,
             "meta": 9,
-            "newblkid": 2042,
-            "newmeta": 14,
+            "newblkid": 2045,
+            "newmeta": 10,
             "biomes": [ "icemountains","frozenriver","extremehillsedge","mushroomisland","sky","forest","junglehills","hell","deserthills" ]
         },
         {
@@ -1449,43 +1449,43 @@
             "blkid": 1,
             "meta": 4,
             "newblkid": 2029,
-            "newmeta": 2
+            "newmeta": 8
         },
         {
             "blkid": 1,
             "meta": 1,
             "newblkid": 2029,
-            "newmeta": 3
+            "newmeta": 2
         },
         {
             "blkid": 1,
             "meta": 3,
             "newblkid": 2029,
-            "newmeta": 4
+            "newmeta": 3
         },
         {
             "blkid": 1,
             "meta": 15,
             "newblkid": 2029,
-            "newmeta": 5
+            "newmeta": 4
         },
         {
             "blkid": 1,
             "meta": 5,
             "newblkid": 2029,
-            "newmeta": 6
+            "newmeta": 5
         },
         {
             "blkid": 1,
             "meta": 14,
             "newblkid": 2029,
-            "newmeta": 7
+            "newmeta": 9
         },
         {
             "blkid": 1,
             "meta": 2,
             "newblkid": 2029,
-            "newmeta": 8
+            "newmeta": 7
         },
         {
             "blkid": 139,
@@ -1715,7 +1715,7 @@
         {
             "blkid": 100,
             "meta": 14,
-            "newblkid": 2033,
+            "newblkid": 2071,
             "newmeta": 14
         }
     ]
