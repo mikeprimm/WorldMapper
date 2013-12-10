@@ -1842,6 +1842,12 @@
         {
             "blkid": 66,
             "newblkid": 2080
+        },
+        {
+            "blkid": 84,
+            "newblkid": 2018,
+            "newmeta": 3,
+            "tosstileentity" : true
         }
     ]
 }
