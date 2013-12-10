@@ -10,6 +10,7 @@ import java.util.BitSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.spout.nbt.ByteArrayTag;
 import org.spout.nbt.CompoundMap;
@@ -41,6 +42,7 @@ public class WorldMapper {
         private int meta = -1;
         private int newblkid;
         private int newmeta = -1;
+        private int newrandommeta[] = null;
         private boolean tosstileentity = false;
         private String biomes[] = null;
     }
@@ -114,7 +116,7 @@ public class WorldMapper {
                 meta = (datavals & 0xF);
                 idmataval = (id << 4) | meta;
                 newidmetaval = blkid_map[idmataval];
-                int biomeid = biomes[(i & 0x7F) << 1];
+                int biomeid = 0xFF & biomes[i & 0xFF];
                 newidmetaval = getBiomeSpecificID(idmataval, biomeid);
                 
                 if (newidmetaval != idmataval) {    // New value?
@@ -140,7 +142,7 @@ public class WorldMapper {
                 meta = (datavals & 0xF0) >> 4;
                 idmataval = (id << 4) | meta;
                 newidmetaval = blkid_map[idmataval];
-                biomeid = biomes[((i & 0x7F) << 1) + 1];
+                biomeid = 0xFF & biomes[i & 0xFF];
                 newidmetaval = getBiomeSpecificID(idmataval, biomeid);
                 if (newidmetaval != idmataval) {    // New value?
                     if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
@@ -244,15 +246,25 @@ public class WorldMapper {
             }
         }
     }
+    
+    private static Random rnd = new Random();
+    
     private static void updateMapping(BlockMapping mb, int[] map) {
         // Now, fill in the mapping records
         if (mb.meta < 0) {
             for (int meta = 0; meta < 16; meta++) {
                 int idx = (mb.blkid*16) + meta;
-                if (mb.newmeta < 0)
-                    map[idx] = (mb.newblkid * 16) + meta;
-                else
+                if (mb.newmeta < 0) {
+                    if (mb.newrandommeta != null) {
+                        map[idx] = (mb.newblkid * 16) + mb.newrandommeta[rnd.nextInt(mb.newrandommeta.length)];
+                    }
+                    else {
+                        map[idx] = (mb.newblkid * 16) + meta;
+                    }
+                }
+                else {
                     map[idx] = (mb.newblkid * 16) + mb.newmeta;
+                }
                 // If scrapping tile entity
                 if(mb.tosstileentity) {
                     blkid_toss_tileentity.set(idx);
@@ -260,10 +272,17 @@ public class WorldMapper {
             }   
         }
         else {
-            if (mb.newmeta < 0)
-                map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.meta;
-            else
+            if (mb.newmeta < 0) {
+                if (mb.newrandommeta != null) {
+                    map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.newrandommeta[rnd.nextInt(mb.newrandommeta.length)];
+                }
+                else {
+                    map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.meta;
+                }
+            }
+            else {
                 map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.newmeta;
+            }
             if(mb.tosstileentity) {
                 blkid_toss_tileentity.set((mb.blkid*16) + mb.meta);
             }
