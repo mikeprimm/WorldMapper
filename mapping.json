@@ -608,7 +608,7 @@
         },
         {
             "blkid": 42,
-            "meta": 2,
+            "meta": 0,
             "newblkid": 133,
             "newmeta": 0
         },
@@ -920,7 +920,7 @@
         {
             "blkid": 15,
             "meta": 1,
-            "newblkid": 57,
+            "newblkid": 56,
             "newmeta": 0
         },
         {
@@ -931,7 +931,7 @@
         },
         {
             "blkid": 101,
-            "meta": 9,
+            "meta": 8,
             "newblkid": 2013,
             "newmeta": 3
         },
@@ -1108,28 +1108,28 @@
         {
             "blkid": 43,
             "meta": 1,
-            "newblkid": 2041,
+            "newblkid": 2042,
             "newmeta": 0,
             "biomes": [ "frozenocean", "taigahills","extremehills","plains","mushroomislandshore","river","swampland","foresthills" ]
         },
         {
             "blkid": 43,
             "meta": 1,
-            "newblkid": 2041,
-            "newmeta": 6,
+            "newblkid": 2046,
+            "newmeta": 2,
             "biomes": [ "icemountains","frozenriver","extremehillsedge","mushroomisland","sky","forest","junglehills","hell","deserthills" ]
         },
         {
             "blkid": 44,
             "meta": 1,
-            "newblkid": 2042,
+            "newblkid": 2041,
             "newmeta": 0,
             "biomes": [ "frozenocean", "taigahills","extremehills","plains","mushroomislandshore","river","swampland","foresthills" ]
         },
         {
             "blkid": 44,
             "meta": 9,
-            "newblkid": 2042,
+            "newblkid": 2041,
             "newmeta": 8,
             "biomes": [ "frozenocean", "taigahills","extremehills","plains","mushroomislandshore","river","swampland","foresthills" ]
         },
@@ -1371,25 +1371,25 @@
             "blkid": 98,
             "meta": 5,
             "newblkid": 2004,
-            "newmeta": 6
+            "newmeta": 10
         },
         {
             "blkid": 98,
             "meta": 6,
             "newblkid": 2004,
-            "newmeta": 10
+            "newmeta": 6
         },
         {
             "blkid": 98,
             "meta": 7,
             "newblkid": 2004,
-            "newmeta": 7
+            "newmeta": 11
         },
         {
             "blkid": 98,
             "meta": 8,
             "newblkid": 2004,
-            "newmeta": 11
+            "newmeta": 7
         },
         {
             "blkid": 98,
@@ -1479,7 +1479,7 @@
             "blkid": 1,
             "meta": 14,
             "newblkid": 2029,
-            "newmeta": 9
+            "newmeta": 6
         },
         {
             "blkid": 1,
@@ -1557,7 +1557,7 @@
             "blkid": 139,
             "meta": 2,
             "newblkid": 2022,
-            "newmeta": 3
+            "newmeta": 1
         },
         {
             "blkid": 139,
@@ -1594,6 +1594,12 @@
             "meta": 3,
             "newblkid": 2027,
             "newmeta": 4
+        },
+        {
+            "blkid": 129,
+            "meta": 0,
+            "newblkid": 2027,
+            "newmeta": 8
         },
         {
             "blkid": 5,
@@ -1647,19 +1653,19 @@
             "blkid": 5,
             "meta": 11,
             "newblkid": 35,
-            "newmeta": 5
+            "newmeta": 12
         },
         {
             "blkid": 5,
             "meta": 10,
             "newblkid": 35,
-            "newmeta": 6
+            "newmeta": 2
         },
         {
             "blkid": 5,
             "meta": 9,
             "newblkid": 35,
-            "newmeta": 2
+            "newmeta": 6
         },
         {
             "blkid": 35,
@@ -1672,6 +1678,24 @@
             "meta": 12,
             "newblkid": 2030,
             "newmeta": 10
+        },
+        {
+            "blkid": 170,
+            "meta": 0,
+            "newblkid": 2004,
+            "newmeta": 1
+        },
+        {
+            "blkid": 170,
+            "meta": 4,
+            "newblkid": 2004,
+            "newmeta": 5
+        },
+        {
+            "blkid": 170,
+            "meta": 8,
+            "newblkid": 2004,
+            "newmeta": 9
         },
         {
             "blkid": 133,
@@ -1717,6 +1741,22 @@
             "meta": 14,
             "newblkid": 2071,
             "newmeta": 14
+        },
+        {
+            "blkid": 42,
+            "meta": 2,
+            "newblkid": 42,
+            "newmeta": 0
+        },
+        {
+            "blkid": 159,
+            "meta": 15,
+            "newblkid": 2030,
+            "newmeta": 12
+        },
+        {
+            "blkid": 66,
+            "newblkid": 2080
         }
     ]
 }
