@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -36,13 +37,15 @@ public class WorldMapper {
     private static int biome_blkid_map[][] = new int[256][];
     private static BitSet blkid_biome_specific = new BitSet(); // Flags which source IDs to scrap tile entity
     private static BitSet blkid_toss_tileentity = new BitSet(); // Flags which source IDs to scrap tile entity
+    // For target above 65536
+    private static ArrayList<int[]> blkid_random_map = new ArrayList<int[]>();
 
     private static class BlockMapping {
         private int blkid;
         private int meta = -1;
         private int newblkid;
         private int newmeta = -1;
-        private int newrandommeta[] = null;
+        private int[] newRandomIDMeta = null;
         private boolean tosstileentity = false;
         private String biomes[] = null;
     }
@@ -249,18 +252,39 @@ public class WorldMapper {
     
     private static Random rnd = new Random();
     
+    private static final int RANDOM_INDEX = 65536;
+    
     private static void updateMapping(BlockMapping mb, int[] map) {
         // Now, fill in the mapping records
-        if (mb.meta < 0) {
+        if (mb.newRandomIDMeta != null) { // If random dest
+            int destidx = RANDOM_INDEX + blkid_random_map.size();
+            int[] v = new int[mb.newRandomIDMeta.length / 2];
+            for (int i = 0; i < v.length; i++) {
+                v[i] = mb.newRandomIDMeta[2*i] * 16 + mb.newRandomIDMeta[2*i+1];
+            }
+            blkid_random_map.add(v);
+            if (mb.meta < 0) {
+                for (int meta = 0; meta < 16; meta++) {
+                    int idx = (mb.blkid*16) + meta;
+                    map[idx] = destidx;
+                    // If scrapping tile entity
+                    if(mb.tosstileentity) {
+                        blkid_toss_tileentity.set(idx);
+                    }
+                }   
+            }
+            else {
+                map[(mb.blkid*16) + mb.meta] = destidx;
+                if(mb.tosstileentity) {
+                    blkid_toss_tileentity.set((mb.blkid*16) + mb.meta);
+                }
+            }            
+        }
+        else if (mb.meta < 0) {
             for (int meta = 0; meta < 16; meta++) {
                 int idx = (mb.blkid*16) + meta;
                 if (mb.newmeta < 0) {
-                    if (mb.newrandommeta != null) {
-                        map[idx] = (mb.newblkid * 16) + mb.newrandommeta[rnd.nextInt(mb.newrandommeta.length)];
-                    }
-                    else {
-                        map[idx] = (mb.newblkid * 16) + meta;
-                    }
+                    map[idx] = (mb.newblkid * 16) + meta;
                 }
                 else {
                     map[idx] = (mb.newblkid * 16) + mb.newmeta;
@@ -273,12 +297,7 @@ public class WorldMapper {
         }
         else {
             if (mb.newmeta < 0) {
-                if (mb.newrandommeta != null) {
-                    map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.newrandommeta[rnd.nextInt(mb.newrandommeta.length)];
-                }
-                else {
-                    map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.meta;
-                }
+                map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.meta;
             }
             else {
                 map[(mb.blkid*16) + mb.meta] = (mb.newblkid * 16) + mb.newmeta;
@@ -452,17 +471,22 @@ public class WorldMapper {
         return -1;
     }
     private static int getBiomeSpecificID(int idmetaval, int biomeid) {
+        int id = blkid_map[idmetaval];
         // If biome specific mapping defined?
         if (blkid_biome_specific.get(idmetaval)) {
             int[] map = biome_blkid_map[biomeid];
             if (map != null) {
-                int id = map[idmetaval];
-                if (id != idmetaval) {
-                    return id;
+                int newid = map[idmetaval];
+                if (newid != idmetaval) {
+                    id = newid;
                 }
             }
         }
-        return blkid_map[idmetaval];
+        if (id >= RANDOM_INDEX) {
+            int[] randlist = blkid_random_map.get(id - RANDOM_INDEX);
+            id = randlist[rnd.nextInt(randlist.length)];
+        }
+        return id;
     }
 
 }
