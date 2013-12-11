@@ -1795,7 +1795,7 @@
         {
             "blkid": 22,
             "newblkid": 2029,
-            "newmeta": 11
+            "newmeta": 12
         },
         {
             "blkid": 124,
@@ -1848,6 +1848,18 @@
             "newblkid": 2018,
             "newmeta": 3,
             "tosstileentity" : true
+        },
+        {
+            "blkid": 3,
+            "meta": 2,
+            "newblkid": 2033,
+            "newmeta": 4
+        },
+        {
+            "blkid": 3,
+            "meta": 3,
+            "newblkid": 2033,
+            "newmeta": 3
         }
     ]
 }
