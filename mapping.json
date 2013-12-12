@@ -981,6 +981,84 @@
             "newmeta": 9
         },
         {
+            "blkid": 38,
+            "meta": 1,
+            "newRandomIDMeta": [ 2059, 4, 2059, 11, 2059, 9, 2059, 3, 2060, 0 ]
+        },
+        {
+            "blkid": 38,
+            "meta": 2,
+            "newRandomIDMeta": [ 2060, 5, 2060, 3, 2059, 7 ]
+        },
+        {
+            "blkid": 38,
+            "meta": 3,
+            "newRandomIDMeta": [ 2059, 13, 2059, 12 ]
+        },
+        {
+            "blkid": 38,
+            "meta": 4,
+            "newRandomIDMeta": [ 2060, 4, 2006, 5, 2059, 8, 2060, 8 ]
+        },
+        {
+            "blkid": 38,
+            "meta": 5,
+            "newRandomIDMeta": [ 2059, 6, 2059, 5 ]
+        },
+        {
+            "blkid": 38,
+            "meta": 6,
+            "newRandomIDMeta": [ 2059, 15, 2060, 1 ]
+        },
+        {
+            "blkid": 38,
+            "meta": 7,
+            "newblkid": 2060,
+            "newmeta": 6
+        },
+        {
+            "blkid": 38,
+            "meta": 8,
+            "newblkid": 2059,
+            "newmeta": 10
+        },
+        {
+            "blkid": 38,
+            "meta": 9,
+            "newblkid": 2059,
+            "newmeta": 14
+        },
+        {
+            "blkid": 38,
+            "meta": 10,
+            "newblkid": 2059,
+            "newmeta": 0
+        },
+        {
+            "blkid": 38,
+            "meta": 11,
+            "newblkid": 2059,
+            "newmeta": 1
+        },
+        {
+            "blkid": 38,
+            "meta": 12,
+            "newblkid": 2059,
+            "newmeta": 12
+        },
+        {
+            "blkid": 38,
+            "meta": 13,
+            "newblkid": 2060,
+            "newmeta": 4
+        },
+        {
+            "blkid": 38,
+            "meta": 14,
+            "newblkid": 2060,
+            "newmeta": 8
+        },
+        {
             "blkid": 30,
             "meta": 6,
             "newblkid": 2053,
@@ -1371,25 +1449,25 @@
             "blkid": 98,
             "meta": 5,
             "newblkid": 2004,
-            "newmeta": 10
+            "newmeta": 6
         },
         {
             "blkid": 98,
             "meta": 6,
             "newblkid": 2004,
-            "newmeta": 6
+            "newmeta": 10
         },
         {
             "blkid": 98,
             "meta": 7,
             "newblkid": 2004,
-            "newmeta": 11
+            "newmeta": 7
         },
         {
             "blkid": 98,
             "meta": 8,
             "newblkid": 2004,
-            "newmeta": 7
+            "newmeta": 11
         },
         {
             "blkid": 98,
