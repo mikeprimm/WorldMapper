@@ -1,7 +1,6 @@
 package com.mikeprimm.WorldMapper;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -154,7 +153,7 @@ public class RegionFile {
             return false;
         }
         
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(8192);
+        BufferOutputStream baos = new BufferOutputStream();
         DeflaterOutputStream dos = new DeflaterOutputStream(baos);
         NBTOutputStream nbtos = new NBTOutputStream(dos, false);
         try {
@@ -162,8 +161,8 @@ public class RegionFile {
         } finally {
             nbtos.close();
         }
-        byte[] cbytes = baos.toByteArray();
-        int clen = baos.size();
+        byte[] cbytes = baos.buf;
+        int clen = baos.len;
         
         int idx = getIndex(x, z);   // Get index
         int curoff = this.chunkoff[idx];

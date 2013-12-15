@@ -1,11 +1,13 @@
 package com.mikeprimm.WorldMapper;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Iterator;
@@ -116,59 +118,63 @@ public class WorldMapper {
                 }
                 // Process even values
                 id = (255 & blocks[i]) | ((extid & 0xF) << 8);
-                meta = (datavals & 0xF);
-                idmataval = (id << 4) | meta;
-                newidmetaval = blkid_map[idmataval];
-                int biomeid = 0xFF & biomes[i & 0xFF];
-                newidmetaval = getBiomeSpecificID(idmataval, biomeid);
-                
-                if (newidmetaval != idmataval) {    // New value?
-                    if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
-                        deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
+                if (id != 0) {
+                    meta = (datavals & 0xF);
+                    idmataval = (id << 4) | meta;
+                    newidmetaval = blkid_map[idmataval];
+                    int biomeid = 0xFF & biomes[i & 0xFF];
+                    newidmetaval = getBiomeSpecificID(idmataval, biomeid);
+
+                    if (newidmetaval != idmataval) {    // New value?
+                        if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
+                            deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
+                        }
+                        id = (newidmetaval >> 4);
+                        meta = (newidmetaval & 0xF);
+                        if ((id > 256) && (extblocks == null)) {
+                            extblocks = new byte[2048];
+                            sect.put("Add", new ByteArrayTag("Add", extblocks));
+                        }
+                        blocks[i] = (byte)(255 & id);
+                        if (extblocks != null) {
+                            extid = (byte) ((extid & 0xF0) | ((id >> 8) & 0xF));
+                        }
+                        datavals = (byte) ((datavals & 0xF0) | (meta & 0xF));
+                        bcnt++;
                     }
-                    id = (newidmetaval >> 4);
-                    meta = (newidmetaval & 0xF);
-                    if ((id > 256) && (extblocks == null)) {
-                        extblocks = new byte[2048];
-                        sect.put("Add", new ByteArrayTag("Add", extblocks));
-                    }
-                    blocks[i] = (byte)(255 & id);
-                    if (extblocks != null) {
-                        extid = (byte) ((extid & 0xF0) | ((id >> 8) & 0xF));
-                    }
-                    datavals = (byte) ((datavals & 0xF0) | (meta & 0xF));
-                    bcnt++;
                 }
                 i++;
                 // Process odd values
                 id = (255 & blocks[i]) | ((extid & 0xF0) << 4);
-                meta = (datavals & 0xF0) >> 4;
-                idmataval = (id << 4) | meta;
-                newidmetaval = blkid_map[idmataval];
-                biomeid = 0xFF & biomes[i & 0xFF];
-                newidmetaval = getBiomeSpecificID(idmataval, biomeid);
-                if (newidmetaval != idmataval) {    // New value?
-                    if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
-                        deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
+                if (id != 0) {
+                    meta = (datavals & 0xF0) >> 4;
+                    idmataval = (id << 4) | meta;
+                    newidmetaval = blkid_map[idmataval];
+                    int biomeid = 0xFF & biomes[i & 0xFF];
+                    newidmetaval = getBiomeSpecificID(idmataval, biomeid);
+                    if (newidmetaval != idmataval) {    // New value?
+                        if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
+                            deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
+                        }
+                        id = (newidmetaval >> 4);
+                        meta = (newidmetaval & 0xF);
+                        if ((id > 256) && (extblocks == null)) {
+                            extblocks = new byte[2048];
+                            sect.put("Add", new ByteArrayTag("Add", extblocks));
+                        }
+                        blocks[i] = (byte)(255 & id);
+                        if (extblocks != null) {
+                            extid = (byte) ((extid & 0x0F) | ((id >> 4) & 0xF0));
+                        }
+                        datavals = (byte) ((datavals & 0x0F) | ((meta << 4) & 0xF0));
+                        bcnt++;
                     }
-                    id = (newidmetaval >> 4);
-                    meta = (newidmetaval & 0xF);
-                    if ((id > 256) && (extblocks == null)) {
-                        extblocks = new byte[2048];
-                        sect.put("Add", new ByteArrayTag("Add", extblocks));
-                    }
-                    blocks[i] = (byte)(255 & id);
-                    if (extblocks != null) {
-                        extid = (byte) ((extid & 0x0F) | ((id >> 4) & 0xF0));
-                    }
-                    datavals = (byte) ((datavals & 0x0F) | ((meta << 4) & 0xF0));
-                    bcnt++;
                 }
+                i++;
                 data[j] = (byte)(0xFF & datavals);
                 if (extblocks != null) {
                     extblocks[j] = (byte)(0xFF & extid);
                 }
-                i++;
             }
         }
         private void deleteTileEntity(int x, int y, int z, int idmeta) {
@@ -443,24 +449,40 @@ public class WorldMapper {
             }
         }
     }
+    
+    private static void close(Closeable closable) {
+        if (closable != null) {
+            try {
+                closable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     // Process a generic file (just copy)
-    private static void processFileCopy(File srcfile, File destfile) throws IOException {
-        byte[] buf = new byte[2048];
-        FileInputStream fis = null;
-        FileOutputStream fos = null;
+    @SuppressWarnings("resource")
+    private static void processFileCopy(File source, File target) throws IOException {
+        FileChannel in = null;
+        FileChannel out = null;
+
         try {
-            fis = new FileInputStream(srcfile);
-            fos = new FileOutputStream(destfile);
-            int rlen;
-            while ((rlen = fis.read(buf)) > 0) {
-                fos.write(buf,  0,  rlen);
+            in = new FileInputStream(source).getChannel();
+            out = new FileOutputStream(target).getChannel();
+
+            long size = in.size();
+            long transferred = in.transferTo(0, size, out);
+
+            while(transferred != size){
+                transferred += in.transferTo(transferred, size - transferred, out);
             }
         } finally {
-            if (fis != null) { try { fis.close(); } catch (IOException iox) {} }
-            if (fos != null) { try { fos.close(); } catch (IOException iox) {} }
+            close(in);
+            close(out);
         }
-        System.out.println("Copied " + srcfile.getPath() + " to " + destfile.getPath());
+        System.out.println("Copied " + source.getPath() + " to " + target.getPath());
     }
+
     private static int findBiomeIndex(String name) {
         String n = name.toLowerCase().replace(" ", "");
         for (int i = 0; i < biomes.length; i++) {
@@ -471,6 +493,8 @@ public class WorldMapper {
         return -1;
     }
     private static int getBiomeSpecificID(int idmetaval, int biomeid) {
+        if (idmetaval == 0) return 0;
+        
         int id = blkid_map[idmetaval];
         // If biome specific mapping defined?
         if (blkid_biome_specific.get(idmetaval)) {
