@@ -313,6 +313,7 @@ public class WorldMapper {
             }
         }
     }
+    private static boolean update = false;
     /**
      * Main routine for running mapper
      * 
@@ -353,6 +354,10 @@ public class WorldMapper {
             System.exit(1);
         } finally {
             if (rdr != null) { try { rdr.close(); } catch (IOException iox) {} }
+        }
+        if ((args.length > 3) && args[3].equals("update")) {
+            update = true;
+            System.out.println("Update changed files only");
         }
         // Check destination
         File destdir = new File(args[2]);
@@ -411,6 +416,10 @@ public class WorldMapper {
         int tecnt = 0;
         int cupdated = 0;
         RegionFile destf = null;
+        if (update && (srcfile.lastModified() == destfile.lastModified())) {
+            System.out.println("Region " + destfile.getPath() + ": source unchaged");
+            return;
+        }
         try {
             // Copy source file to destination
             processFileCopy(srcfile, destfile);
@@ -444,6 +453,9 @@ public class WorldMapper {
             if (!success) {
                 destfile.delete();
             }
+            else {
+                destfile.setLastModified(srcfile.lastModified()); // Preserve last modified
+            }
             if (destf != null) {
                 destf.cleanup();
             }
@@ -466,6 +478,11 @@ public class WorldMapper {
         FileChannel in = null;
         FileChannel out = null;
 
+        if (update && (source.lastModified() == target.lastModified())) {
+            System.out.println("Skipped " + target.getPath() + ": source unchanged");
+            return;
+        }
+
         try {
             in = new FileInputStream(source).getChannel();
             out = new FileOutputStream(target).getChannel();
@@ -480,6 +497,8 @@ public class WorldMapper {
             close(in);
             close(out);
         }
+        target.setLastModified(source.lastModified()); // Preserve last modified
+        
         System.out.println("Copied " + source.getPath() + " to " + target.getPath());
     }
 
