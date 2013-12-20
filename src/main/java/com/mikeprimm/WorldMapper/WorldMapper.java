@@ -402,6 +402,9 @@ public class WorldMapper {
             else if (srcname.endsWith(".mca")) {    // If region file
                 processRegionFile(srcfile, new File(dest, srcname));
             }
+            else if (srcname.endsWith(".schematic")) {  // If schematic file
+                processSchematicFile(srcfile, new File(dest, srcname));
+            }
             //TODO: other file types we need to handle : level.dat
             
             else {  // Else, just copy file
@@ -461,7 +464,65 @@ public class WorldMapper {
             }
         }
     }
-    
+
+    // Process a schematic file
+    private static void processSchematicFile(File srcfile, File destfile) throws IOException {
+        boolean success = false;
+        int bcnt = 0;
+        int tecnt = 0;
+        int cupdated = 0;
+        RegionFile destf = null;
+        if (update && (srcfile.lastModified() == destfile.lastModified())) {
+            System.out.println("Region " + destfile.getPath() + ": source unchaged");
+            return;
+        }
+        try {
+            WESchematicFile schfile = new WESchematicFile();
+            schfile.load(srcfile);  // Load it
+            for (int x = 0; x < schfile.width; x++) {
+                for (int y = 0; y < schfile.height; y++) {
+                    for (int z = 0; z < schfile.length; z++) {
+                        int id = schfile.getID(x, y, z);
+                        if (id != 0) {
+                            int meta = schfile.getData(x, y, z);
+                            int idmataval = (id << 4) | meta;
+                            int newidmetaval = blkid_map[idmataval];
+                            
+                            newidmetaval = getBiomeSpecificID(idmataval, 0);
+
+                            if (newidmetaval != idmataval) {    // New value?
+                                //if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
+                                //    deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
+                                //}
+                                id = (newidmetaval >> 4);
+                                meta = (newidmetaval & 0xF);
+                                schfile.setIDAndData(x, y, z, id, meta);
+                                bcnt++;
+                            }
+                        }
+                    }
+                }
+            }
+            schfile.save(destfile);
+            
+            success = true;
+
+            System.out.println("Schematic " + destfile.getPath() + ", updated " + bcnt + " blocks");
+        } catch (IOException iox) {
+            System.out.println("Schematic " + destfile.getPath() + " FAILED - " + iox.getMessage());
+        } finally {
+            if (!success) {
+                destfile.delete();
+            }
+            else {
+                destfile.setLastModified(srcfile.lastModified()); // Preserve last modified
+            }
+            if (destf != null) {
+                destf.cleanup();
+            }
+        }
+    }
+
     private static void close(Closeable closable) {
         if (closable != null) {
             try {
