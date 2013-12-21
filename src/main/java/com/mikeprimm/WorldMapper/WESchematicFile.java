@@ -4,12 +4,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
 import org.spout.nbt.ByteArrayTag;
 import org.spout.nbt.CompoundTag;
+import org.spout.nbt.ListTag;
 import org.spout.nbt.ShortTag;
+import org.spout.nbt.IntTag;
 import org.spout.nbt.Tag;
 import org.spout.nbt.stream.NBTInputStream;
 import org.spout.nbt.stream.NBTOutputStream;
@@ -21,6 +28,7 @@ public class WESchematicFile {
     private byte[] ids;
     private byte[] extids;
     private byte[] data;
+    private HashSet<String> tileEntityToDrop = new HashSet<String>();
     
     public void load(File file) throws IOException {
         FileInputStream stream = new FileInputStream(file);
@@ -50,6 +58,23 @@ public class WESchematicFile {
     }
     
     public void save(File file) throws IOException {
+        if (tileEntityToDrop.isEmpty() == false) {  // Any TEs to delete
+            List<Tag> tileEntities = ((ListTag) schematic.get("TileEntities")).getValue();
+            Iterator<Tag> iter = tileEntities.iterator();
+            ArrayList<Tag> newtag = new ArrayList<Tag>();
+            while (iter.hasNext()) {
+                Tag tag = iter.next();
+                if (!(tag instanceof CompoundTag)) continue;
+                CompoundTag ctag = (CompoundTag) tag;
+                int x = ((IntTag) ctag.getValue().get("x")).getValue();
+                int y = ((IntTag) ctag.getValue().get("y")).getValue();
+                int z = ((IntTag) ctag.getValue().get("z")).getValue();
+                if (!tileEntityToDrop.remove(""+x+","+y+","+z)) {
+                    newtag.add(ctag);
+                }
+            }
+            schematic.put("TileEntities", new ListTag("TileEntities", CompoundTag.class, newtag));
+        }
         NBTOutputStream stream = new NBTOutputStream(new FileOutputStream(file));
         stream.writeTag(schematicTag);
         stream.close();
@@ -96,4 +121,9 @@ public class WESchematicFile {
         data[index] = (byte)(dat & 0xF);
         //System.out.println(String.format("new %2x:%2x:%2x", (extids != null)?extids[index >> 1]:0, ids[index], data[index >> 1] ));
     }
+    public void deleteTileEntity(int x, int y, int z) {
+        String key = "" + x + "," + y + "," + z;
+        tileEntityToDrop.add(key);
+    }
+
 }

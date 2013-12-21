@@ -491,9 +491,10 @@ public class WorldMapper {
                             newidmetaval = getBiomeSpecificID(idmataval, 0);
 
                             if (newidmetaval != idmataval) {    // New value?
-                                //if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
-                                //    deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
-                                //}
+                                if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
+                                    schfile.deleteTileEntity(x, y, z);
+                                    tecnt++;
+                                }
                                 id = (newidmetaval >> 4);
                                 meta = (newidmetaval & 0xF);
                                 schfile.setIDAndData(x, y, z, id, meta);
@@ -507,7 +508,7 @@ public class WorldMapper {
             
             success = true;
 
-            System.out.println("Schematic " + destfile.getPath() + ", updated " + bcnt + " blocks");
+            System.out.println("Schematic " + destfile.getPath() + ", updated " + bcnt + " blocks, stripped " + tecnt + " tile entities");
         } catch (IOException iox) {
             System.out.println("Schematic " + destfile.getPath() + " FAILED - " + iox.getMessage());
         } finally {
