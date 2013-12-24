@@ -95,12 +95,7 @@ public class WESchematicFile {
     }
     public int getData(int x, int y, int z) {
         int index = y * width * length + z * width + x;
-        if ((index & 1) == 0) {
-            return ((int) (data[index >> 1] & 0x0F)) << 8;
-        }
-        else {
-            return ((int) (data[index >> 1] & 0xF0)) << 4;
-        }
+        return 0xF & data[index];
     }
     public void setIDAndData(int x, int y, int z, int id, int dat) {
         //System.out.println(String.format("set %d,%d,%d to %03x:%x", x, y, z, id, dat));
