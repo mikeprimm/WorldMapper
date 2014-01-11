@@ -1,0 +1,265 @@
+{
+    "blocks": [
+        {
+            "blkid": 2491,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 751,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 750,
+            "newblkid": 0,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 752,
+            "newblkid": 0,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 767,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 760,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 761,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 762,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 759,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 758,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 757,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 756,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 768,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 753,
+            "newblkid": 0,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 765,
+            "newblkid": 0,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 763,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 766,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 764,
+            "newblkid": 1,
+            "newmeta": 0,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 246,
+            "newblkid": 59,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 243,
+            "newblkid": 4091,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 245,
+            "newblkid": 4092,
+            "tosstileentity" : true
+        },
+        {
+            "blkid": 242,
+            "meta": 0,
+            "newblkid": 2130,
+            "newmeta": 0
+        },
+        {
+            "blkid": 242,
+            "meta": 1,
+            "newblkid": 129,
+            "newmeta": 0
+        },
+        {
+            "blkid": 242,
+            "meta": 2,
+            "newblkid": 2130,
+            "newmeta": 1
+        },
+        {
+            "blkid": 242,
+            "meta": 3,
+            "newblkid": 2001,
+            "newmeta": 2
+        },
+        {
+            "blkid": 242,
+            "meta": 4,
+            "newblkid": 2001,
+            "newmeta": 1
+        },
+        {
+            "blkid": 242,
+            "meta": 5,
+            "newblkid": 2001,
+            "newmeta": 0
+        },
+        {
+            "blkid": 242,
+            "meta": 6,
+            "newblkid": 2001,
+            "newmeta": 2
+        },
+        {
+            "blkid": 242,
+            "meta": 7,
+            "newblkid": 2001,
+            "newmeta": 0
+        },
+        {
+            "blkid": 241,
+            "meta": 0,
+            "newblkid": 37,
+            "newmeta": 0
+        },
+        {
+            "blkid": 241,
+            "meta": 1,
+            "newblkid": 38,
+            "newmeta": 0
+        },
+        {
+            "blkid": 244,
+            "meta": 0,
+            "newblkid": 2131,
+            "newmeta": 0
+        },
+        {
+            "blkid": 244,
+            "meta": 1,
+            "newblkid": 2131,
+            "newmeta": 3
+        },
+        {
+            "blkid": 244,
+            "meta": 2,
+            "newblkid": 2131,
+            "newmeta": 1
+        },
+        {
+            "blkid": 244,
+            "meta": 3,
+            "newblkid": 2131,
+            "newmeta": 2
+        },
+        {
+            "blkid": 244,
+            "meta": 4,
+            "newblkid": 2131,
+            "newmeta": 4
+        },
+        {
+            "blkid": 244,
+            "meta": 5,
+            "newblkid": 2131,
+            "newmeta": 4
+        },
+        {
+            "blkid": 244,
+            "meta": 6,
+            "newblkid": 2131,
+            "newmeta": 3
+        },
+        {
+            "blkid": 754,
+            "meta": 0,
+            "newblkid": 2131,
+            "newmeta": 5
+        },
+        {
+            "blkid": 754,
+            "meta": 1,
+            "newblkid": 133,
+            "newmeta": 0
+        },
+        {
+            "blkid": 754,
+            "meta": 2,
+            "newblkid": 2131,
+            "newmeta": 6
+        },
+        {
+            "blkid": 754,
+            "meta": 3,
+            "newblkid": 2005,
+            "newmeta": 2
+        },
+        {
+            "blkid": 754,
+            "meta": 4,
+            "newblkid": 2005,
+            "newmeta": 1
+        },
+        {
+            "blkid": 754,
+            "meta": 5,
+            "newblkid": 2005,
+            "newmeta": 0
+        }
+    ]
+}
