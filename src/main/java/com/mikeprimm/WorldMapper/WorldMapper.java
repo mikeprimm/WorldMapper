@@ -64,6 +64,7 @@ public class WorldMapper {
         LinkedList<CompoundTag> new_tileents; // New list, if modified
         byte[] biomes; // biome data (ZX order)
         List<CompoundTag> sections; // Chunk sections
+        boolean empty;
 
         @SuppressWarnings("unchecked")
         MappedChunk(Tag<?> lvl) throws IOException {
@@ -81,14 +82,15 @@ public class WorldMapper {
             // Get sections of chunk
             sections = NBTMapper.getTagValue(value.get("Sections"), List.class);
             if (sections == null) { throw new IOException("No value for Sections in chunk"); }
-
+            empty = sections.size() == 0;
             bcnt = tescrubbed = 0;
         }
         // Process chunk
         void processChunk() throws IOException {
+            empty = true;
             // Loop through the sections
             for (CompoundTag sect : sections) {
-                processSection(sect.getValue());
+                empty = processSection(sect.getValue()) & empty;
             }
             // If modified tile entities list, replace it
             if (new_tileents != null) {
@@ -96,7 +98,7 @@ public class WorldMapper {
                 new_tileents = null;
             }
         }
-        void processSection(CompoundMap sect) throws IOException {
+        boolean processSection(CompoundMap sect) throws IOException {
             Byte y = NBTMapper.getTagValue(sect.get("Y"), Byte.class);
             if (y == null) throw new IOException("Section missing Y field");
             byte[] blocks = NBTMapper.getTagValue(sect.get("Blocks"), byte[].class);
@@ -107,6 +109,7 @@ public class WorldMapper {
             byte[] data = NBTMapper.getTagValue(sect.get("Data"), byte[].class);
             if ((data == null) || (data.length < 2048)) throw new IOException("Section missing Data field");
             
+            boolean isEmpty = true;
             for (int i = 0, j = 0; i < 4096; j++) { // YZX order
                 int id, meta;
                 int extid = 0;
@@ -142,6 +145,9 @@ public class WorldMapper {
                         datavals = (byte) ((datavals & 0xF0) | (meta & 0xF));
                         bcnt++;
                     }
+                    if (newidmetaval != 0) {
+                        isEmpty = false;
+                    }
                 }
                 i++;
                 // Process odd values
@@ -169,6 +175,9 @@ public class WorldMapper {
                         datavals = (byte) ((datavals & 0x0F) | ((meta << 4) & 0xF0));
                         bcnt++;
                     }
+                    if (newidmetaval != 0) {
+                        isEmpty = false;
+                    }
                 }
                 i++;
                 data[j] = (byte)(0xFF & datavals);
@@ -176,6 +185,7 @@ public class WorldMapper {
                     extblocks[j] = (byte)(0xFF & extid);
                 }
             }
+            return isEmpty;
         }
         private void deleteTileEntity(int x, int y, int z, int idmeta) {
             if (new_tileents == null) {
@@ -480,6 +490,7 @@ public class WorldMapper {
             destf = new RegionFile(destfile);
             destf.load();
             int cnt = 0;
+            int dcnt = 0;
             for (int x = 0; x < 32; x++) {
                 for (int z = 0; z < 32; z++) {
                     if(destf.chunkExists(x, z)) {   // If chunk exists
@@ -488,8 +499,13 @@ public class WorldMapper {
                         if (tag == null) { System.err.println("Chunk " + x + "," + z + " exists but not read"); continue; }
                         MappedChunk mc = new MappedChunk(tag);
                         mc.processChunk();
+                        // Test if chunk is empty
+                        if (mc.empty) {
+                            destf.deleteChunk(x, z);    // Delete it
+                            dcnt++;
+                        }
                         // Test if updated
-                        if (mc.bcnt > 0) {
+                        else if (mc.bcnt > 0) {
                             bcnt += mc.bcnt;
                             tecnt += mc.tescrubbed;
                             cupdated++;
@@ -500,8 +516,14 @@ public class WorldMapper {
                 }
             }
             success = true;
-
-            System.out.println("Region " + destfile.getPath() + ", " + cnt + " chunks: updated " + bcnt + " blocks in " + cupdated + " chunks, " + tecnt + " TileEntities scrubbed");
+            if (dcnt == cnt) {  // Deleted all the chunks found?
+                System.out.println("Region " + destfile.getPath() + ", all " + cnt + " chunks deleted: file dropped");
+                destfile.delete();
+            }
+            else {
+                System.out.println("Region " + destfile.getPath() + ", " + cnt + " chunks: updated " + bcnt + " blocks in " + cupdated + " chunks, Deleted " + dcnt + " chunks, " + tecnt + " TileEntities scrubbed");
+            }
+            		
         } finally {
             if (!success) {
                 destfile.delete();
@@ -520,7 +542,6 @@ public class WorldMapper {
         boolean success = false;
         int bcnt = 0;
         int tecnt = 0;
-        int cupdated = 0;
         RegionFile destf = null;
         if (update && (srcfile.lastModified() == destfile.lastModified())) {
             System.out.println("Region " + destfile.getPath() + ": source unchaged");
@@ -585,7 +606,6 @@ public class WorldMapper {
     }
 
     // Process a generic file (just copy)
-    @SuppressWarnings("resource")
     private static void processFileCopy(File source, File target) throws IOException {
         FileChannel in = null;
         FileChannel out = null;

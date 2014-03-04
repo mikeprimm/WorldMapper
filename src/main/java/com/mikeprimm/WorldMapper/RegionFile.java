@@ -228,4 +228,25 @@ public class RegionFile {
         
         return true;
     }
+    // Delete chunk
+    public boolean deleteChunk(int x, int z) throws IOException {
+        // Sanity check chunk coordinates
+        if ((x < 0) || (x > 31) || (z < 0) || (z > 31)) {
+            return false;
+        }
+        int idx = getIndex(x, z);   // Get index
+        int curoff = this.chunkoff[idx];
+        int curlen = this.chunklen[idx];
+
+        // If allocated 
+        if (curoff > 0) {
+            // Free space
+            for (int off = curoff; off < (curoff + curlen); off++) {
+                this.alloc_table.clear(off);
+            }
+        }
+        writeChunkOffsetCnt(x, z, 0, 0);
+        
+        return true;
+    }
 }
