@@ -314,6 +314,52 @@ public class WorldMapper {
         }
     }
     private static boolean update = false;
+    
+    private static void doMerge(String[] args) {
+        // Get and validate source directory
+        File srcdir = new File(args[1]);
+        if (!srcdir.isDirectory()) {
+            System.err.println("Source '" + args[1] + "' must be existing world directory.");
+            System.exit(1);
+        }
+        // Check destination
+        File destdir = new File(args[2]);
+        if (destdir.exists() == false) {    // Create if needed
+            destdir.mkdirs();
+        }
+        if (!destdir.isDirectory()) {
+            System.err.println("Destination '" + args[2] + "' is not directory.");
+            System.exit(1);
+        }
+        try {
+            processWorldMerge(srcdir, destdir);
+            
+            System.out.println("World mapping completed");
+            System.exit(0);
+        } catch (IOException iox) {
+            System.err.println(iox.getMessage());
+            System.exit(1);
+        }
+    }
+    
+    private static void processWorldMerge(File src, File dest) throws IOException {
+        File[] srcfiles = src.listFiles();
+        if (srcfiles == null) return;
+        
+        for (File srcfile : srcfiles) {
+            String srcname = srcfile.getName();
+            if (srcfile.isDirectory()) {    // If directory, create copy in destination and recurse
+                File destdir = new File(dest, srcname);
+                destdir.mkdir();
+                processWorldMerge(srcfile, destdir);
+            }
+            else if (srcname.endsWith(".mca")) {    // If region file
+                // Merge region files
+                mergeRegionFile(srcfile, new File(dest, srcname));;
+            }
+        }
+    }
+
     /**
      * Main routine for running mapper
      * 
@@ -323,6 +369,10 @@ public class WorldMapper {
         if (args.length < 3) {
             System.err.println("Required arguments: src-world-dir map-file.json dest-world-dir");
             System.exit(1);
+        }
+        if (args[0].equals("merge")) {  // Merge argv[1] into argv[2] world directory
+            doMerge(args);
+            return;
         }
         // Get and validate source directory
         File srcdir = new File(args[0]);
@@ -562,6 +612,58 @@ public class WorldMapper {
         target.setLastModified(source.lastModified()); // Preserve last modified
         
         System.out.println("Copied " + source.getPath() + " to " + target.getPath());
+    }
+    
+    // Merge region files
+    private static void mergeRegionFile(File srcfile, File destfile) throws IOException {
+        RegionFile srcf = null;
+        RegionFile destf = null;
+        try {
+            if (destfile.exists() == false) {   // No corresponding destination?
+                // Copy source file to destination
+                processFileCopy(srcfile, destfile);
+            }
+            else {  // Else update it
+                // Load region file
+                srcf = new RegionFile(srcfile);
+                srcf.load();
+                boolean allreplaced = true;
+                for (int x = 0; allreplaced && (x < 32); x++) {
+                    for (int z = 0; allreplaced && (z < 32); z++) {
+                        if(!srcf.chunkExists(x, z)) {   // If chunk doesn't exists
+                            allreplaced = false;
+                        }
+                    }
+                }
+                if (allreplaced) {
+                    // Copy source file to destination
+                    processFileCopy(srcfile, destfile);
+                    return;
+                }
+                // Load region file
+                destf = new RegionFile(destfile);
+                destf.load();
+                int cnt = 0;
+                for (int x = 0; x < 32; x++) {
+                    for (int z = 0; z < 32; z++) {
+                        if(srcf.chunkExists(x, z)) {   // If chunk exists
+                            cnt++;
+                            Tag<?> tag = srcf.readChunk(x, z);
+                            if (tag == null) { System.err.println("Chunk " + x + "," + z + " exists but not read"); continue; }
+                            destf.writeChunk(x, z, tag);    // Write to file
+                        }
+                    }
+                }
+                System.out.println("Region " + srcfile.getPath() + ": copied " + cnt + " chunks to " + destfile.getPath());
+            }
+        } finally {
+            if (destf != null) {
+                destf.cleanup();
+            }
+            if (srcf != null) {
+                srcf.cleanup();
+            }
+        }
     }
 
     private static int findBiomeIndex(String name) {

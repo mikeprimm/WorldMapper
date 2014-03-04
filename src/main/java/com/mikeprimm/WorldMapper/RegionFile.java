@@ -101,7 +101,7 @@ public class RegionFile {
             return false;
         }
         int idx = getIndex(x, z);
-        return chunkoff[idx] > 0;
+        return (chunkoff[idx] > 0) && (chunklen[idx] > 0);
     }
     
     // Read chunk, return as data stream
