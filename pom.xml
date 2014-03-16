@@ -85,8 +85,8 @@
   </build>
      <repositories>
 		<repository>
-			<id>spout-repo</id>
-			<url>http://repo.spout.org</url>
+			<id>dynmap</id>
+			<url>http://repo.mikeprimm.com</url>
 		</repository>
 	</repositories>
   
