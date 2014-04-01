@@ -465,6 +465,9 @@ public class WorldMapper {
             else if (srcname.endsWith(".schematic")) {  // If schematic file
                 processSchematicFile(srcfile, new File(dest, srcname));
             }
+            else if (srcname.endsWith(".bo2")) {  // If schematic file
+                processBO2File(srcfile, new File(dest, srcname));
+            }
             //TODO: other file types we need to handle : level.dat
             
             else {  // Else, just copy file
@@ -544,7 +547,7 @@ public class WorldMapper {
         int tecnt = 0;
         RegionFile destf = null;
         if (update && (srcfile.lastModified() == destfile.lastModified())) {
-            System.out.println("Region " + destfile.getPath() + ": source unchaged");
+            System.out.println("Schematic file " + destfile.getPath() + ": source unchaged");
             return;
         }
         try {
@@ -582,6 +585,55 @@ public class WorldMapper {
             System.out.println("Schematic " + destfile.getPath() + ", updated " + bcnt + " blocks, stripped " + tecnt + " tile entities");
         } catch (IOException iox) {
             System.out.println("Schematic " + destfile.getPath() + " FAILED - " + iox.getMessage());
+        } finally {
+            if (!success) {
+                destfile.delete();
+            }
+            else {
+                destfile.setLastModified(srcfile.lastModified()); // Preserve last modified
+            }
+            if (destf != null) {
+                destf.cleanup();
+            }
+        }
+    }
+
+    // Process a BO2 file
+    private static void processBO2File(File srcfile, File destfile) throws IOException {
+        boolean success = false;
+        int bcnt = 0;
+        RegionFile destf = null;
+        if (update && (srcfile.lastModified() == destfile.lastModified())) {
+            System.out.println("BO2 file " + destfile.getPath() + ": source unchaged");
+            return;
+        }
+        try {
+            WorldPainterBO2File bo2file = new WorldPainterBO2File();
+            bo2file.load(srcfile);  // Load it
+            for (int idx = 0; idx < bo2file.dataCount(); idx++) {
+                int id = bo2file.getID(idx);
+                if (id != 0) {
+                    int meta = bo2file.getData(idx);
+                    int idmataval = (id << 4) | meta;
+                    int newidmetaval = blkid_map[idmataval];
+                            
+                    newidmetaval = getBiomeSpecificID(idmataval, 0);
+
+                    if (newidmetaval != idmataval) {    // New value?
+                        id = (newidmetaval >> 4);
+                        meta = (newidmetaval & 0xF);
+                        bo2file.setIDAndData(idx, id, meta);
+                        bcnt++;
+                    }
+                }
+            }
+            bo2file.save(destfile);
+            
+            success = true;
+
+            System.out.println("BO2 file " + destfile.getPath() + ", updated " + bcnt + " blocks");
+        } catch (IOException iox) {
+            System.out.println("BO2 file " + destfile.getPath() + " FAILED - " + iox.getMessage());
         } finally {
             if (!success) {
                 destfile.delete();
