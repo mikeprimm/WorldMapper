@@ -39,6 +39,7 @@ public class WorldMapper {
     private static int biome_blkid_map[][] = new int[256][];
     private static BitSet blkid_biome_specific = new BitSet(); // Flags which source IDs to scrap tile entity
     private static BitSet blkid_toss_tileentity = new BitSet(); // Flags which source IDs to scrap tile entity
+    private static BitSet blkid_toss_ifunsupported = new BitSet(); // Flags which source IDs to scrap if over air
     // For target above 65536
     private static ArrayList<int[]> blkid_random_map = new ArrayList<int[]>();
 
@@ -49,6 +50,7 @@ public class WorldMapper {
         private int newmeta = -1;
         private int[] newRandomIDMeta = null;
         private boolean tosstileentity = false;
+        private boolean tossifunsupported = false;
         private String biomes[] = null;
     }
     private static class MappingConfig {
@@ -98,6 +100,42 @@ public class WorldMapper {
                 new_tileents = null;
             }
         }
+        CompoundMap findSection(int y) {
+            for (CompoundTag sect : sections) {
+                CompoundMap map = sect.getValue();
+                Byte yy = NBTMapper.getTagValue(map.get("Y"), Byte.class);
+                if (yy.intValue() == y) {
+                    return map;
+                }
+            }
+            return null;
+        }
+        boolean isAirBelow(byte[] blocks, byte[] extblocks, int off, Byte y) {
+            int yy = ((off >> 8) & 0xF);
+            int id = 0;
+            if (yy > 0) {   // Same section?
+                off -= 256;
+                int extid = 0;
+                id = (255 & blocks[off]);
+                if (extblocks != null) {
+                    if ((off & 1) == 0) { // Even values
+                        id |= ((extid & 0xF) << 8);
+                    }
+                    else {
+                        id |= ((extid & 0xF0) << 4);
+                    }
+                }
+            }
+            else {
+                y = (byte)(y.intValue() - 1);
+                CompoundMap sect = findSection(y);
+                if (sect != null) {
+                    return isAirBelow(NBTMapper.getTagValue(sect.get("Blocks"), byte[].class), 
+                            NBTMapper.getTagValue(sect.get("Add"), byte[].class), off + 4096, y);
+                }
+            }
+            return (id == 0);
+        }
         boolean processSection(CompoundMap sect) throws IOException {
             Byte y = NBTMapper.getTagValue(sect.get("Y"), Byte.class);
             if (y == null) throw new IOException("Section missing Y field");
@@ -127,7 +165,12 @@ public class WorldMapper {
                     newidmetaval = blkid_map[idmataval];
                     int biomeid = 0xFF & biomes[i & 0xFF];
                     newidmetaval = getBiomeSpecificID(idmataval, biomeid);
-
+                    // Unsupported reed?
+                    if (blkid_toss_ifunsupported.get(idmataval) && isAirBelow(blocks, extblocks, i, y)) {
+                        newidmetaval = 0;
+                        System.out.println(String.format("Unsupported block: %d,%d,%d", (i & 0xF), ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF));
+                    }
+                    
                     if (newidmetaval != idmataval) {    // New value?
                         if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
                             deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
@@ -158,6 +201,11 @@ public class WorldMapper {
                     newidmetaval = blkid_map[idmataval];
                     int biomeid = 0xFF & biomes[i & 0xFF];
                     newidmetaval = getBiomeSpecificID(idmataval, biomeid);
+                    // Unsupported reed?
+                    if (blkid_toss_ifunsupported.get(idmataval) && isAirBelow(blocks, extblocks, i, y)) {
+                        newidmetaval = 0;
+                        System.out.println(String.format("Unsupported block: %d,%d,%d", (i & 0xF), ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF));
+                    }
                     if (newidmetaval != idmataval) {    // New value?
                         if (blkid_toss_tileentity.get(idmataval)) { // If scrubbing tile entity
                             deleteTileEntity(i & 0xF, ((i >> 8) & 0xF) + yoff, (i >> 4) & 0xF, idmataval);
@@ -287,12 +335,18 @@ public class WorldMapper {
                     if(mb.tosstileentity) {
                         blkid_toss_tileentity.set(idx);
                     }
+                    if(mb.tossifunsupported) {
+                        blkid_toss_ifunsupported.set(idx);
+                    }
                 }   
             }
             else {
                 map[(mb.blkid*16) + mb.meta] = destidx;
                 if(mb.tosstileentity) {
                     blkid_toss_tileentity.set((mb.blkid*16) + mb.meta);
+                }
+                if(mb.tossifunsupported) {
+                    blkid_toss_ifunsupported.set((mb.blkid*16) + mb.meta);
                 }
             }            
         }
@@ -309,6 +363,9 @@ public class WorldMapper {
                 if(mb.tosstileentity) {
                     blkid_toss_tileentity.set(idx);
                 }
+                if(mb.tossifunsupported) {
+                    blkid_toss_ifunsupported.set(idx);
+                }
             }   
         }
         else {
@@ -320,6 +377,9 @@ public class WorldMapper {
             }
             if(mb.tosstileentity) {
                 blkid_toss_tileentity.set((mb.blkid*16) + mb.meta);
+            }
+            if(mb.tossifunsupported) {
+                blkid_toss_ifunsupported.set((mb.blkid*16) + mb.meta);
             }
         }
     }
